@@ -1,6 +1,7 @@
 package dev.ratas.slimedogcore.impl.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -47,10 +48,14 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
         if (subCommand == null || !subCommand.hasPermission(sender)) {
             return false;
         }
-        if (!subCommand.onCommand(sender, args, opts)) {
+        if (!subCommand.onCommand(sender, removeFirstArg(args), opts)) {
             sender.sendMessage(subCommand.getUsage(sender, args));
         }
         return true;
+    }
+    
+    protected String[] removeFirstArg(String[] args) {
+        return Arrays.copyOfRange(args, 1, args.length);
     }
 
     protected List<String> getApplicableSubCommandNames(CommandSender sender) {

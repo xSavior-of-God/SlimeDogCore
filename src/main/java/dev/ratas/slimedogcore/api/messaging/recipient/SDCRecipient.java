@@ -16,6 +16,19 @@ public interface SDCRecipient {
      */
     <T extends SDCContext> void sendMessage(SDCMessage<T> message);
 
+    /**
+     * Send raw message to recipient.
+     *
+     * @param msg the message
+     */
+    void sendRawMessage(String msg);
+
+    /**
+     * Check whether the recipient has certain permissions.
+     *
+     * @param perms the permissions in question
+     * @return whether or not the recpient has the permission
+     */
     boolean hasPermission(String perms);
 
 }

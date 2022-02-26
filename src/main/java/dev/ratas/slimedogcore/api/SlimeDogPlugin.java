@@ -1,6 +1,7 @@
 package dev.ratas.slimedogcore.api;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
@@ -81,6 +82,13 @@ public interface SlimeDogPlugin {
      * Called at the end of the plugin being disabled.
      */
     void pluginDisabled();
+
+    /**
+     * Gets the logger associated with the plugin
+     *
+     * @return the plugin logger
+     */
+    Logger getLogger();
 
     /**
      * Gets the default config (config.yml) of the plugin.

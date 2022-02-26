@@ -7,17 +7,19 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
+import dev.ratas.slimedogcore.impl.wrappers.BukkitAdapter;
+
 public abstract class BukkitFacingParentCommand extends AbstractParentCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return onTabComplete(sender, args);
+        return onTabComplete(BukkitAdapter.adapt(sender), args);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         OptionParser opts = OptionParser.parseArgs(args);
-        return onCommand(sender, opts.args, opts.opts);
+        return onCommand(BukkitAdapter.adapt(sender), opts.args, opts.opts);
     }
 
     private static class OptionParser {

@@ -1,8 +1,7 @@
 package dev.ratas.slimedogcore.impl.commands;
 
-import org.bukkit.command.CommandSender;
-
 import dev.ratas.slimedogcore.api.commands.SDCSubCommand;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 
 public abstract class AbstractSubCommand implements SDCSubCommand {
     private final String name;
@@ -16,12 +15,12 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
     }
 
     @Override
-    public boolean hasPermission(CommandSender sender) {
+    public boolean hasPermission(SDCRecipient sender) {
         return sender.hasPermission(perms);
     }
 
     @Override
-    public String getUsage(CommandSender sender, String[] args) {
+    public String getUsage(SDCRecipient sender, String[] args) {
         return usage;
     }
 

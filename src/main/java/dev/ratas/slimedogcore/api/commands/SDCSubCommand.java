@@ -1,12 +1,12 @@
 package dev.ratas.slimedogcore.api.commands;
 
-import org.bukkit.command.CommandSender;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 
 public interface SDCSubCommand extends SDCCommandPart {
 
-    boolean hasPermission(CommandSender sender);
+    boolean hasPermission(SDCRecipient sender);
 
-    String getUsage(CommandSender sender, String[] args);
+    String getUsage(SDCRecipient sender, String[] args);
 
     String getName();
 

@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
 
 import dev.ratas.slimedogcore.api.commands.SDCParentCommand;
 import dev.ratas.slimedogcore.api.commands.SDCSubCommand;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.impl.utils.StringIgnoreCase;
 
 public abstract class AbstractParentCommand implements SDCParentCommand {
@@ -28,7 +28,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String[] args) {
+    public List<String> onTabComplete(SDCRecipient sender, String[] args) {
         if (args.length == 1) {
             return StringUtil.copyPartialMatches(args[0], getApplicableSubCommandNames(sender), new ArrayList<>());
         }
@@ -40,7 +40,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, String[] args, List<String> opts) {
+    public boolean onCommand(SDCRecipient sender, String[] args, List<String> opts) {
         if (args.length == 0) {
             return false;
         }
@@ -49,16 +49,16 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
             return false;
         }
         if (!subCommand.onCommand(sender, removeFirstArg(args), opts)) {
-            sender.sendMessage(subCommand.getUsage(sender, args));
+            sender.sendRawMessage(subCommand.getUsage(sender, args));
         }
         return true;
     }
-    
+
     protected String[] removeFirstArg(String[] args) {
         return Arrays.copyOfRange(args, 1, args.length);
     }
 
-    protected List<String> getApplicableSubCommandNames(CommandSender sender) {
+    protected List<String> getApplicableSubCommandNames(SDCRecipient sender) {
         List<String> names = new ArrayList<>();
         for (SDCSubCommand subCommand : subCommands.values()) {
             if (subCommand.hasPermission(sender)) {

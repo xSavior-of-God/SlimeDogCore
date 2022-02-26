@@ -32,6 +32,12 @@ public class ConfigTest {
         File file = new File(mockPlugin.getDataFolder(), "sf.yml");
         SDCCustomConfig config = manager.getConfig(file);
         Assertions.assertNotNull(config, "Config shouldn't be null");
+    }
+
+    @Test
+    public void test_emptyConfigNoContents() {
+        File file = new File(mockPlugin.getDataFolder(), "sf.yml");
+        SDCCustomConfig config = manager.getConfig(file);
         Assertions.assertEquals(0, config.getConfig().getKeys(true).size(),
                 "There should be no keys in a non-existing config");
         Assertions.assertEquals(0, config.getConfig().getValues(true).size(),

@@ -8,4 +8,6 @@ public interface SDCSubCommand extends SDCCommandPart {
 
     String getUsage(CommandSender sender, String[] args);
 
+    String getName();
+
 }

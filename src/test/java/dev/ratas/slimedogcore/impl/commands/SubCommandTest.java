@@ -1,6 +1,7 @@
 package dev.ratas.slimedogcore.impl.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,8 +50,16 @@ public class SubCommandTest {
     }
 
     @Test
+    public void test_SubCommand_noCall_tabComplete() {
+        String[] curArgs = Arrays.copyOf(ALL_ARGS.toArray(new String[0]), ALL_ARGS.size());
+        curArgs[0] = "SOMETHING ELSE";
+        parent.onTabComplete(recipient, curArgs);
+        Assertions.assertEquals(0, times.get(), "The sub-command onTabComplete should not be called");
+    }
+
+    @Test
     public void test_SubCommand_getsCalled_TabComplete() {
-        parent.onTabComplete(recipient, ALL_ARGS.toArray(new String[0])); // needs at least one argument
+        parent.onTabComplete(recipient, ALL_ARGS.toArray(new String[0]));
         Assertions.assertEquals(1, times.get(), "The sub-command onTabComplete should be called once");
     }
 

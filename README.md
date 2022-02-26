@@ -2,4 +2,4 @@
 Core utilities for SlimeDog resources
 
 If you find it useful, or just what to have a look, you are welcome to it, under the terms of GPL3 license.
-Basically, that means give credit where due.
+Please give credit where due.

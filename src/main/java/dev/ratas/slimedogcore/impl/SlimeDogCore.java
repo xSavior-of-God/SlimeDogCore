@@ -16,7 +16,7 @@ import dev.ratas.slimedogcore.impl.wrappers.PluginManager;
 import dev.ratas.slimedogcore.impl.wrappers.ResourceProvider;
 import dev.ratas.slimedogcore.impl.wrappers.WorldProvider;
 
-public class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
+public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
     private final ConfigManager configManager;
     private final ResourceProvider resourceProvider;
     private final PluginManager pluginManager;
@@ -32,6 +32,16 @@ public class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
         pluginManager = new PluginManager(this);
         worldProvider = new WorldProvider(this);
         scheduler = new Scheduler(this);
+    }
+
+    @Override
+    public void onEnable() {
+        pluginEnabled();
+    }
+
+    @Override
+    public void onDisable() {
+        pluginDisabled();
     }
 
     @Override

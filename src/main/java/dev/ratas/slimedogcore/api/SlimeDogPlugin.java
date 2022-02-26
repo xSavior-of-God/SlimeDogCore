@@ -24,4 +24,8 @@ public interface SlimeDogPlugin {
 
     SDCCustomConfigManager getCustomConfigManager();
 
+    void pluginEnabled();
+
+    void pluginDisabled();
+
 }

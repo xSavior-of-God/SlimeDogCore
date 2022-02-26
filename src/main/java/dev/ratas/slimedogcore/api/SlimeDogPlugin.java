@@ -2,6 +2,7 @@ package dev.ratas.slimedogcore.api;
 
 import java.io.File;
 
+import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
@@ -72,5 +73,9 @@ public interface SlimeDogPlugin {
      * Called at the end of the plugin being disabled.
      */
     void pluginDisabled();
+
+    default SDCCustomConfig getDefaultConfig() {
+        return getCustomConfigManager().getDefaultConfig();
+    }
 
 }

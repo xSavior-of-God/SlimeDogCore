@@ -25,7 +25,7 @@ public interface SDCTripleContext<T1, T2, T3> extends SDCContext {
      *
      * @return the third replacement
      */
-    T2 getContentsThree();
+    T3 getContentsThree();
 
     default int getNumberOfPlaceholders() {
         return 3;

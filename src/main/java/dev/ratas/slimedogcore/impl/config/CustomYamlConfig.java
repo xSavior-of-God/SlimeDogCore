@@ -55,6 +55,9 @@ public class CustomYamlConfig implements SDCCustomConfig {
 
     @Override
     public SDCConfiguration getConfig() {
+        if (wrapper == null) {
+            reloadConfig();
+        }
         return wrapper;
     }
 

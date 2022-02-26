@@ -2,6 +2,7 @@ package dev.ratas.slimedogcore.api.messaging.factory;
 
 import dev.ratas.slimedogcore.api.messaging.SDCMessage;
 import dev.ratas.slimedogcore.api.messaging.context.SDCVoidContext;
+import dev.ratas.slimedogcore.impl.messaging.context.VoidContext;
 
 /**
  * The void message factory is used to construct a message with no required
@@ -16,7 +17,7 @@ public interface SDCVoidContextMessageFactory extends SDCMessageFactory<SDCVoidC
      * @return the associated message
      */
     default SDCMessage<SDCVoidContext> getMessage() {
-        return getMessage(null);
+        return getMessage(VoidContext.INSTANCE);
     }
 
 }

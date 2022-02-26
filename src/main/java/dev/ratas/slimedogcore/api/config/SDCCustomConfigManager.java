@@ -23,8 +23,15 @@ public interface SDCCustomConfigManager {
      * 
      * @param file
      * @throws IllegalArgumentException if the file is not in the plugin data folder
-     * @return
+     * @return the custom config
      */
     SDCCustomConfig getConfig(File file);
+
+    /**
+     * Gets the config described by the default plugin config (config.yml).
+     *
+     * @return the default config
+     */
+    SDCCustomConfig getDefaultConfig();
 
 }

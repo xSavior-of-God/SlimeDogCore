@@ -8,6 +8,7 @@ import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 
 public class ConfigManager implements SDCCustomConfigManager {
+    private static final String DEFAULT_CONFIG_NAME = "config.yml";
     private final SlimeDogPlugin plugin;
 
     public ConfigManager(SlimeDogPlugin plugin) {
@@ -28,6 +29,11 @@ public class ConfigManager implements SDCCustomConfigManager {
             throw new IllegalArgumentException("Cannot use custom configs for files not in the plugin data folder");
         }
         return new CustomYamlConfig(plugin.getResourceProvider(), file);
+    }
+
+    @Override
+    public SDCCustomConfig getDefaultConfig() {
+        return getConfig(DEFAULT_CONFIG_NAME);
     }
 
 }

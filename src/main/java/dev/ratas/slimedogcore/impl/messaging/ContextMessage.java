@@ -1,21 +1,19 @@
 package dev.ratas.slimedogcore.impl.messaging;
 
-import org.bukkit.command.CommandSender;
-
 import dev.ratas.slimedogcore.api.messaging.SDCMessage;
 import dev.ratas.slimedogcore.api.messaging.context.SDCContext;
 import dev.ratas.slimedogcore.api.messaging.delivery.MessageTarget;
-import dev.ratas.slimedogcore.api.messaging.delivery.SDCMessageDeliverer;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 
 public class ContextMessage<T extends SDCContext> implements SDCMessage<T> {
     private final String raw;
     private final T context;
-    private final SDCMessageDeliverer messageDeliverer;
+    private final MessageTarget msgTarget;
 
-    public ContextMessage(String raw, T context, SDCMessageDeliverer messageDeliverer) {
+    public ContextMessage(String raw, T context, MessageTarget msgTarget) {
         this.raw = raw;
         this.context = context;
-        this.messageDeliverer = messageDeliverer;
+        this.msgTarget = msgTarget;
     }
 
     @Override
@@ -30,17 +28,12 @@ public class ContextMessage<T extends SDCContext> implements SDCMessage<T> {
 
     @Override
     public MessageTarget getTarget() {
-        return messageDeliverer.getDeliveryTarget();
+        return msgTarget;
     }
 
     @Override
-    public SDCMessageDeliverer getDeliverer() {
-        return messageDeliverer;
-    }
-
-    @Override
-    public void sendTo(CommandSender sender) {
-        messageDeliverer.deliver(this, sender);
+    public void sendTo(SDCRecipient recpient) {
+        recpient.sendMessage(this);
     }
 
 }

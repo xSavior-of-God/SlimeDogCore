@@ -1,9 +1,7 @@
 package dev.ratas.slimedogcore.api.messaging;
 
-import org.bukkit.command.CommandSender;
-
 import dev.ratas.slimedogcore.api.messaging.context.SDCContext;
-import dev.ratas.slimedogcore.api.messaging.delivery.SDCMessageDeliverer;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.api.messaging.delivery.MessageTarget;
 
 /**
@@ -22,9 +20,9 @@ public interface SDCMessage<T extends SDCContext> {
     /**
      * Sends the message to the recipient as per the message target specified.
      *
-     * @param sender the recipient
+     * @param recipient the recipient
      */
-    void sendTo(CommandSender sender);
+    void sendTo(SDCRecipient recipient);
 
     /**
      * Gets the context that will be used to fill in the placeholder(s) in the raw
@@ -40,12 +38,5 @@ public interface SDCMessage<T extends SDCContext> {
      * @return the message target
      */
     MessageTarget getTarget();
-
-    /**
-     * Gets the message deliverer that us used with this message
-     *
-     * @return the message deliverer
-     */
-    SDCMessageDeliverer getDeliverer();
 
 }

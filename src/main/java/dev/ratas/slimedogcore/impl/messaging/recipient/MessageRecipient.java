@@ -12,7 +12,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class MessageRecipient implements SDCRecipient {
-    private final CommandSender delegate;
+    protected final CommandSender delegate;
 
     public MessageRecipient(CommandSender delegate) {
         this.delegate = delegate;

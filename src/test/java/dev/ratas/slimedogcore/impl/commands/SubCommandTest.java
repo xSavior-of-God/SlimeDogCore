@@ -33,6 +33,7 @@ public class SubCommandTest {
     private MockParentCommand parent;
     private AtomicInteger times;
     private MockRecipient recipient;
+    private String[] curArgs;
 
     @BeforeEach
     public void setup() {
@@ -47,13 +48,20 @@ public class SubCommandTest {
         recipient = new MockRecipient(m -> {
         });
         parent = new MockParentCommand(sub);
+        curArgs = Arrays.copyOf(ALL_ARGS.toArray(new String[0]), ALL_ARGS.size());
     }
 
-    @Test
+    @Test // test that no call when inforrect first argument
     public void test_SubCommand_noCall_tabComplete() {
-        String[] curArgs = Arrays.copyOf(ALL_ARGS.toArray(new String[0]), ALL_ARGS.size());
         curArgs[0] = "SOMETHING ELSE";
         parent.onTabComplete(recipient, curArgs);
+        Assertions.assertEquals(0, times.get(), "The sub-command onTabComplete should not be called");
+    }
+
+    @Test // test that no call when inforrect first argument
+    public void test_SubCommand_noCall_onCommand() {
+        curArgs[0] = "SOMETHING ELSE";
+        parent.onCommand(recipient, curArgs, Collections.emptyList());
         Assertions.assertEquals(0, times.get(), "The sub-command onTabComplete should not be called");
     }
 

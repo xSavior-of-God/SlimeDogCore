@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.api.messaging.context;
 
-public interface TripleContext<T1, T2, T3> extends Context {
+public interface SDCTripleContext<T1, T2, T3> extends SDCContext {
 
     T1 getContentsOne();
 

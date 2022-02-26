@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.api.messaging.context;
 
-public interface Context {
+public interface SDCContext {
 
     String fill(String msg);
 

@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.api.messaging.context;
 
-public interface SingleContext<T> extends Context {
+public interface SDCSingleContext<T> extends SDCContext {
 
     T getContents();
 

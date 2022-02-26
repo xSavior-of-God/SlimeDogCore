@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.api.messaging.context;
 
-public interface DoubleContext<T1, T2> extends Context {
+public interface SDCDoubleContext<T1, T2> extends SDCContext {
 
     T1 getContentsOne();
 

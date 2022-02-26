@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.api.messaging.context;
 
-public interface QuadrupleContext<T1, T2, T3, T4> extends Context {
+public interface SDCQuadrupleContext<T1, T2, T3, T4> extends SDCContext {
 
     T1 getContentsOne();
 

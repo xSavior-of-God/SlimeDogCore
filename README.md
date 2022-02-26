@@ -1,5 +1,5 @@
 # SlimeDogCore
-Core utilities for SlimeDog resources
+Core functionality for SlimeDog resources
 
 If you find it useful, you are welcome to it under the terms of the GPL3 license.
 

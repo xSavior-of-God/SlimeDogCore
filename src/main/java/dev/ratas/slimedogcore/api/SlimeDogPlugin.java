@@ -74,6 +74,11 @@ public interface SlimeDogPlugin {
      */
     void pluginDisabled();
 
+    /**
+     * Gets the default config (config.yml) of the plugin.
+     *
+     * @return the config.yml based config
+     */
     default SDCCustomConfig getDefaultConfig() {
         return getCustomConfigManager().getDefaultConfig();
     }

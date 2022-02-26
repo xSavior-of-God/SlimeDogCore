@@ -32,14 +32,14 @@ public abstract class BukkitFacingParentCommand extends AbstractParentCommand im
         public static OptionParser parseArgs(String[] args) {
             List<String> argList = new ArrayList<>();
             List<String> opts = new ArrayList<>();
-            for (int i = args.length - 1; i >= 0; i--) { // traverse in reverse
-                String arg = args[i];
+            for (String arg : args) {
                 if (arg.startsWith("--")) {
                     opts.add(arg);
-                    argList.remove(i);
+                } else {
+                    argList.add(arg);
                 }
             }
-            return new OptionParser(argList.toArray(new String[0]), opts);
+            return new OptionParser(argList.toArray(new String[argList.size()]), opts);
         }
     }
 

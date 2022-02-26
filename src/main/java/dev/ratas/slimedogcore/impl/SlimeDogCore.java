@@ -8,10 +8,12 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
+import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.scheduler.Scheduler;
+import dev.ratas.slimedogcore.impl.wrappers.PluginInformation;
 import dev.ratas.slimedogcore.impl.wrappers.PluginManager;
 import dev.ratas.slimedogcore.impl.wrappers.ResourceProvider;
 import dev.ratas.slimedogcore.impl.wrappers.WorldProvider;
@@ -22,6 +24,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     private final PluginManager pluginManager;
     private final WorldProvider worldProvider;
     private final Scheduler scheduler;
+    private final PluginInformation pluginInformation;
 
     public SlimeDogCore() {
         // These are all simple wrappers that do not use any bukkit code during
@@ -32,6 +35,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
         pluginManager = new PluginManager(this);
         worldProvider = new WorldProvider(this);
         scheduler = new Scheduler(this);
+        pluginInformation = new PluginInformation(this);
     }
 
     @Override
@@ -72,6 +76,11 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     @Override
     public SDCCustomConfigManager getCustomConfigManager() {
         return configManager;
+    }
+
+    @Override
+    public SDCPluginInformation getPluginInformation() {
+        return pluginInformation;
     }
 
 }

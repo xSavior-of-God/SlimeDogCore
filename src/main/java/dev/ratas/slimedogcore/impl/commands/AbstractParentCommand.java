@@ -36,7 +36,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
         if (subCommand == null || !subCommand.hasPermission(sender)) {
             return Collections.emptyList();
         }
-        return subCommand.onTabComplete(sender, args);
+        return subCommand.onTabComplete(sender, removeFirstArg(args));
     }
 
     @Override

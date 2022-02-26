@@ -14,4 +14,8 @@ public abstract class MessagesBase {
         return config.getConfig().getString(path, def);
     }
 
+    public void reloadConfig() {
+        config.reloadConfig();
+    }
+
 }

@@ -10,13 +10,11 @@ import dev.ratas.slimedogcore.api.messaging.delivery.SDCMessageDeliverer;
 public class ContextMessage<T extends SDCContext> implements SDCMessage<T> {
     private final String raw;
     private final T context;
-    private final MessageTarget msgTarget;
     private final SDCMessageDeliverer messageDeliverer;
 
-    public ContextMessage(String raw, T context, MessageTarget msgTarget, SDCMessageDeliverer messageDeliverer) {
+    public ContextMessage(String raw, T context, SDCMessageDeliverer messageDeliverer) {
         this.raw = raw;
         this.context = context;
-        this.msgTarget = msgTarget;
         this.messageDeliverer = messageDeliverer;
     }
 
@@ -32,7 +30,7 @@ public class ContextMessage<T extends SDCContext> implements SDCMessage<T> {
 
     @Override
     public MessageTarget getTarget() {
-        return msgTarget;
+        return messageDeliverer.getDeliveryTarget();
     }
 
     @Override

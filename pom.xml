@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.SlimeDog</groupId>
   <artifactId>SlimeDogCore</artifactId>
-  <version>0.0.9-SNAPSHOT</version>
+  <version>0.0.10-SNAPSHOT</version>
   <name>SlimeDogCore</name>
   <description>SlimeDog core</description>
   <properties>

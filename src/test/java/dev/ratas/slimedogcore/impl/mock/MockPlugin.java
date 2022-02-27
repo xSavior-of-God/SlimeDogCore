@@ -10,10 +10,11 @@ import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
+import dev.ratas.slimedogcore.impl.config.ConfigManager;
 
 public class MockPlugin implements SlimeDogPlugin {
     public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");
-    public final MockConfigManager configManager = new MockConfigManager();
+    public final ConfigManager configManager = new ConfigManager(this);
     public final MockPluginManager pluginManager = new MockPluginManager();
     public final MockWorldProvider worldProvider = new MockWorldProvider();
     public final MockScheduler scheduler = new MockScheduler();

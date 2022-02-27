@@ -7,17 +7,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
-import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.impl.mock.MockPlugin;
 
 public class ConfigTest {
     private MockPlugin mockPlugin;
-    private SDCCustomConfigManager manager;
+    private ConfigManager manager;
 
     @BeforeEach
     public void setup() {
         mockPlugin = new MockPlugin();
-        manager = new ConfigManager(mockPlugin);
+        manager = mockPlugin.configManager;
     }
 
     @Test

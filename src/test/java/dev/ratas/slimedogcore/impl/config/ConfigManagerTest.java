@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.impl.mock.MockPlugin;
 
-public class ConfigTest {
+public class ConfigManagerTest {
     private MockPlugin mockPlugin;
     private ConfigManager manager;
 

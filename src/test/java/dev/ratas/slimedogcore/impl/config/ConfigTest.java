@@ -43,4 +43,13 @@ public class ConfigTest {
                 "There should be no values in a non-existing config");
     }
 
+    @Test
+    public void test_emptyDefaultConfig() {
+        SDCCustomConfig config = manager.getDefaultConfig();
+        Assertions.assertEquals(0, config.getConfig().getKeys(true).size(),
+                "There should be no keys in a non-existing (default) config");
+        Assertions.assertEquals(0, config.getConfig().getValues(true).size(),
+                "There should be no values in a non-existing (default) config");
+    }
+
 }

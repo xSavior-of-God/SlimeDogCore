@@ -14,8 +14,8 @@ public final class BukkitAdapter {
     }
 
     public static SDCRecipient adapt(CommandSender sender) {
-        if (sender instanceof Player player) {
-            return new PlayerRecipient(player);
+        if (sender instanceof Player) {
+            return new PlayerRecipient((Player) sender);
         }
         return new MessageRecipient(sender);
     }

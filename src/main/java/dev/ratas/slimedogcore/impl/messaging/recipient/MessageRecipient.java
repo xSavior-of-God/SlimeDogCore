@@ -26,8 +26,8 @@ public class MessageRecipient implements SDCRecipient {
 
     protected void sendTo(ChatMessageType target, String msg) {
         BaseComponent[] comps = TextComponent.fromLegacyText(msg);
-        if (delegate instanceof Player player) {
-            player.spigot().sendMessage(target, comps);
+        if (delegate instanceof Player) {
+            ((Player) delegate).spigot().sendMessage(target, comps);
         } else {
             delegate.spigot().sendMessage(comps);
         }

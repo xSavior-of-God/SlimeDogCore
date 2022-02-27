@@ -13,13 +13,13 @@ import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 
 public class MockPlugin implements SlimeDogPlugin {
     public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");
-    private final MockConfigManager configManager = new MockConfigManager();
-    private final MockPluginManager pluginManager = new MockPluginManager();
-    private final MockWorldProvider worldProvider = new MockWorldProvider();
-    private final MockScheduler scheduler = new MockScheduler();
-    private final MockPluginInformation pluginInformation = new MockPluginInformation();
-    private final File dataFolder;
-    private final MockResourceProvider resourceProvider = new MockResourceProvider();
+    public final MockConfigManager configManager = new MockConfigManager();
+    public final MockPluginManager pluginManager = new MockPluginManager();
+    public final MockWorldProvider worldProvider = new MockWorldProvider();
+    public final MockScheduler scheduler = new MockScheduler();
+    public final MockPluginInformation pluginInformation = new MockPluginInformation();
+    public final File dataFolder;
+    public final MockResourceProvider resourceProvider = new MockResourceProvider();
 
     public MockPlugin() {
         this(new File("."));

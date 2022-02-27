@@ -12,6 +12,12 @@ import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 
 public class MockPlugin implements SlimeDogPlugin {
+    public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");
+    private final MockConfigManager configManager = new MockConfigManager();
+    private final MockPluginManager pluginManager = new MockPluginManager();
+    private final MockWorldProvider worldProvider = new MockWorldProvider();
+    private final MockScheduler scheduler = new MockScheduler();
+    private final MockPluginInformation pluginInformation = new MockPluginInformation();
     private final File dataFolder;
     private final MockResourceProvider resourceProvider = new MockResourceProvider();
 
@@ -35,20 +41,17 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public SDCScheduler getScheduler() {
-        // TODO Auto-generated method stub
-        return null;
+        return scheduler;
     }
 
     @Override
     public SDCPluginManager getPluginManager() {
-        // TODO Auto-generated method stub
-        return null;
+        return pluginManager;
     }
 
     @Override
     public SDCWorldProvider getWorldProvider() {
-        // TODO Auto-generated method stub
-        return null;
+        return worldProvider;
     }
 
     @Override
@@ -58,14 +61,12 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public SDCCustomConfigManager getCustomConfigManager() {
-        // TODO Auto-generated method stub
-        return null;
+        return configManager;
     }
 
     @Override
     public SDCPluginInformation getPluginInformation() {
-        // TODO Auto-generated method stub
-        return null;
+        return pluginInformation;
     }
 
     @Override
@@ -82,8 +83,7 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public Logger getLogger() {
-        // TODO Auto-generated method stub
-        return null;
+        return LOGGER;
     }
 
 }

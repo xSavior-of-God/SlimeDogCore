@@ -77,4 +77,16 @@ public class SubCommandTest {
         Assertions.assertEquals(times.get(), 1, "The sub-command onTabComplete should be called once");
     }
 
+    @Test
+    public void test_SuCommand_foundWithUppercase() {
+        curArgs[0] = SUB_NAME.toUpperCase();
+        parent.onCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+    }
+
+    @Test
+    public void test_SuCommand_foundWithLowercase() {
+        curArgs[0] = SUB_NAME.toLowerCase();
+        parent.onCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+    }
+
 }

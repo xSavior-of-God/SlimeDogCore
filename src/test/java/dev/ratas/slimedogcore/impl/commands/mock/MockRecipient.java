@@ -6,14 +6,14 @@ import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
 import net.md_5.bungee.api.ChatMessageType;
 
 public class MockRecipient extends MessageRecipient {
-    private final BiConsumer<Object, Boolean> onMessage;
+    private final BiConsumer<String, Boolean> onMessage;
     private final boolean hasAllPerms;
 
-    public MockRecipient(BiConsumer<Object, Boolean> onMessage) {
+    public MockRecipient(BiConsumer<String, Boolean> onMessage) {
         this(onMessage, true);
     }
 
-    public MockRecipient(BiConsumer<Object, Boolean> onMessage, boolean hasAllPerms) {
+    public MockRecipient(BiConsumer<String, Boolean> onMessage, boolean hasAllPerms) {
         super(null);
         this.onMessage = onMessage;
         this.hasAllPerms = hasAllPerms;

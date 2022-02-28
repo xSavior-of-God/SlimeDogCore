@@ -45,7 +45,7 @@ public class SubCommandTest {
             Assertions.assertEquals(ARGUMENTS[1], args[1], "Should have second argument as 'args'");
         };
         sub = new MockSubCommand(SUB_NAME, SUB_PERM, SUB_USAGE, consumer, consumer);
-        recipient = new MockRecipient(m -> {
+        recipient = new MockRecipient((m, b) -> {
         });
         parent = new MockParentCommand(sub);
         curArgs = Arrays.copyOf(ALL_ARGS.toArray(new String[0]), ALL_ARGS.size());

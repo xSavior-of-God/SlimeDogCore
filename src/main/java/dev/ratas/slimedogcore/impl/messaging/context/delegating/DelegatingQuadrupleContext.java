@@ -22,6 +22,7 @@ public class DelegatingQuadrupleContext<T1, T2, T3, T4> implements SDCQuadrupleC
         msg = delegate1.fill(msg);
         msg = delegate2.fill(msg);
         msg = delegate3.fill(msg);
+        msg = delegate4.fill(msg);
         return msg;
     }
 

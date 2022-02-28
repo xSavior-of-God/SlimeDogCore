@@ -1,5 +1,12 @@
 package dev.ratas.slimedogcore.impl.messaging.recipient;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,8 +28,12 @@ public class MessageRecipient implements SDCRecipient {
 
     @Override
     public <T extends SDCContext> void sendMessage(SDCMessage<T> message) {
-        String msg = color(message.context().fill(message.getRaw()));
-        sendTo(message.getTarget().getSpigotType(), msg, false);
+        String msg = message.context().fill(message.getRaw());
+        boolean isJson = isJson(msg);
+        if (!isJson) {
+            msg = color(msg);
+        }
+        sendTo(message.getTarget().getSpigotType(), msg, isJson);
     }
 
     protected void sendTo(ChatMessageType target, String msg, boolean parseJson) {
@@ -51,6 +62,52 @@ public class MessageRecipient implements SDCRecipient {
     @Override
     public void sendRawMessage(String msg) {
         sendTo(ChatMessageType.CHAT, msg, false);
+    }
+
+    public static boolean isJson(final String json) {
+        return isJson(new StringReader(json));
+    }
+
+    private static boolean isJson(final Reader reader) {
+        return isJson(new JsonReader(reader));
+    }
+
+    private static boolean isJson(final JsonReader jsonReader) {
+        try {
+            JsonToken token;
+            loop: while ((token = jsonReader.peek()) != JsonToken.END_DOCUMENT && token != null) {
+                switch (token) {
+                    case BEGIN_ARRAY:
+                        jsonReader.beginArray();
+                        break;
+                    case END_ARRAY:
+                        jsonReader.endArray();
+                        break;
+                    case BEGIN_OBJECT:
+                        jsonReader.beginObject();
+                        break;
+                    case END_OBJECT:
+                        jsonReader.endObject();
+                        break;
+                    case NAME:
+                        jsonReader.nextName();
+                        break;
+                    case STRING:
+                    case NUMBER:
+                    case BOOLEAN:
+                    case NULL:
+                        jsonReader.skipValue();
+                        break;
+                    case END_DOCUMENT:
+                        break loop;
+                    default:
+                        throw new AssertionError(token);
+                }
+            }
+            return true;
+        } catch (IOException ignored) {
+            return false;
+        }
     }
 
 }

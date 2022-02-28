@@ -39,4 +39,8 @@ public interface SDCMessage<T extends SDCContext> {
      */
     MessageTarget getTarget();
 
+    default String getFilled() {
+        return context().fill(getRaw());
+    }
+
 }

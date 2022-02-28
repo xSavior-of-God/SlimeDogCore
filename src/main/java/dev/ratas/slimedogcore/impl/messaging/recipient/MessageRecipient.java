@@ -28,7 +28,7 @@ public class MessageRecipient implements SDCRecipient {
 
     @Override
     public <T extends SDCContext> void sendMessage(SDCMessage<T> message) {
-        String msg = message.context().fill(message.getRaw());
+        String msg = message.getFilled();
         boolean isJson = isJson(msg);
         if (!isJson) {
             msg = color(msg);

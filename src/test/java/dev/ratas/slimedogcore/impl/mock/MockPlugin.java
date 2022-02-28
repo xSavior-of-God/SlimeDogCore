@@ -10,10 +10,17 @@ import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
+import dev.ratas.slimedogcore.impl.config.ConfigManager;
 
 public class MockPlugin implements SlimeDogPlugin {
-    private final File dataFolder;
-    private final MockResourceProvider resourceProvider = new MockResourceProvider();
+    public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");
+    public final ConfigManager configManager = new ConfigManager(this);
+    public final MockPluginManager pluginManager = new MockPluginManager();
+    public final MockWorldProvider worldProvider = new MockWorldProvider();
+    public final MockScheduler scheduler = new MockScheduler();
+    public final MockPluginInformation pluginInformation = new MockPluginInformation();
+    public final File dataFolder;
+    public final MockResourceProvider resourceProvider = new MockResourceProvider();
 
     public MockPlugin() {
         this(new File("."));
@@ -35,20 +42,17 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public SDCScheduler getScheduler() {
-        // TODO Auto-generated method stub
-        return null;
+        return scheduler;
     }
 
     @Override
     public SDCPluginManager getPluginManager() {
-        // TODO Auto-generated method stub
-        return null;
+        return pluginManager;
     }
 
     @Override
     public SDCWorldProvider getWorldProvider() {
-        // TODO Auto-generated method stub
-        return null;
+        return worldProvider;
     }
 
     @Override
@@ -58,14 +62,12 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public SDCCustomConfigManager getCustomConfigManager() {
-        // TODO Auto-generated method stub
-        return null;
+        return configManager;
     }
 
     @Override
     public SDCPluginInformation getPluginInformation() {
-        // TODO Auto-generated method stub
-        return null;
+        return pluginInformation;
     }
 
     @Override
@@ -82,8 +84,7 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public Logger getLogger() {
-        // TODO Auto-generated method stub
-        return null;
+        return LOGGER;
     }
 
 }

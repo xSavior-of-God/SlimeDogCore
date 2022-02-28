@@ -7,17 +7,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
-import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.impl.mock.MockPlugin;
 
-public class ConfigTest {
+public class ConfigManagerTest {
     private MockPlugin mockPlugin;
-    private SDCCustomConfigManager manager;
+    private ConfigManager manager;
 
     @BeforeEach
     public void setup() {
         mockPlugin = new MockPlugin();
-        manager = new ConfigManager(mockPlugin);
+        manager = mockPlugin.configManager;
     }
 
     @Test
@@ -42,6 +41,15 @@ public class ConfigTest {
                 "There should be no keys in a non-existing config");
         Assertions.assertEquals(0, config.getConfig().getValues(true).size(),
                 "There should be no values in a non-existing config");
+    }
+
+    @Test
+    public void test_emptyDefaultConfig() {
+        SDCCustomConfig config = manager.getDefaultConfig();
+        Assertions.assertEquals(0, config.getConfig().getKeys(true).size(),
+                "There should be no keys in a non-existing (default) config");
+        Assertions.assertEquals(0, config.getConfig().getValues(true).size(),
+                "There should be no values in a non-existing (default) config");
     }
 
 }

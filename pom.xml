@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>dev.ratas</groupId>
-  <artifactId>slimedogcore</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <groupId>com.github.SlimeDog</groupId>
+  <artifactId>SlimeDogCore</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
   <name>SlimeDogCore</name>
   <description>SlimeDog core</description>
   <properties>
-    <maven.compiler.source>1.17</maven.compiler.source>
-    <maven.compiler.target>1.17</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -62,10 +62,34 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>17</source>
-          <target>17</target>
+          <source>11</source>
+          <target>11</target>
         </configuration>
         <version>3.8.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+                <failOnError>false</failOnError>
+                <encoding>ISO-8859-1</encoding>
+                <doctitle>${project.name} JavaDocs</doctitle>
+                <windowtitle>${project.name} JavaDocs</windowtitle>
+                <bottom>Copyright &#169; {inceptionYear}&#x2013;{currentYear}
+                        SlimeDog and drives_a_ford. Licensed under the GNU GPL v3.
+                </bottom>
+                <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                </additionalOptions>
+        </configuration>
+        <executions>
+                <execution>
+                        <phase>package</phase>
+                        <goals>
+                                <goal>aggregate-jar</goal>
+                        </goals>
+                </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

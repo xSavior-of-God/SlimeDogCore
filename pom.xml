@@ -74,7 +74,7 @@
         <configuration>
                 <failOnError>false</failOnError>
                 <encoding>ISO-8859-1</encoding>
-                <doctitle>${project.name} JavaDocs</doctitle>
+                <doctitle>${project.name} v${project.version} JavaDocs</doctitle>
                 <windowtitle>${project.name} JavaDocs</windowtitle>
                 <bottom>Copyright &#169; ${inceptionYear}&#x2013;{currentYear}
                         SlimeDog and drives_a_ford. Licensed under the GNU GPL v3.

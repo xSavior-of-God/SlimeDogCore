@@ -5,6 +5,7 @@
   <version>0.1.1-SNAPSHOT</version>
   <name>SlimeDogCore</name>
   <description>SlimeDog core</description>
+  <inceptionYear>2022</inceptionYear>
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
@@ -75,7 +76,7 @@
                 <encoding>ISO-8859-1</encoding>
                 <doctitle>${project.name} JavaDocs</doctitle>
                 <windowtitle>${project.name} JavaDocs</windowtitle>
-                <bottom>Copyright &#169; {inceptionYear}&#x2013;{currentYear}
+                <bottom>Copyright &#169; ${inceptionYear}&#x2013;{currentYear}
                         SlimeDog and drives_a_ford. Licensed under the GNU GPL v3.
                 </bottom>
                 <additionalOptions>

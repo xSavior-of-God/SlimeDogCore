@@ -3,6 +3,7 @@ package dev.ratas.slimedogcore.impl.mock;
 import java.io.File;
 import java.util.logging.Logger;
 
+import dev.ratas.slimedogcore.api.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
@@ -10,6 +11,7 @@ import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
+import dev.ratas.slimedogcore.impl.DebugLogger;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 
 public class MockPlugin implements SlimeDogPlugin {
@@ -21,6 +23,7 @@ public class MockPlugin implements SlimeDogPlugin {
     public final MockPluginInformation pluginInformation = new MockPluginInformation();
     public final File dataFolder;
     public final MockResourceProvider resourceProvider = new MockResourceProvider();
+    public final DebugLogger debugLogger = new DebugLogger(LOGGER, () -> true);
 
     public MockPlugin() {
         this(new File("."));
@@ -85,6 +88,11 @@ public class MockPlugin implements SlimeDogPlugin {
     @Override
     public Logger getLogger() {
         return LOGGER;
+    }
+
+    @Override
+    public SDCDebugLogger getDebugLogger() {
+        return debugLogger;
     }
 
 }

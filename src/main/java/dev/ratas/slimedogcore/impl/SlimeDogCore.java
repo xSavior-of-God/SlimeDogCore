@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import dev.ratas.slimedogcore.api.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
@@ -25,11 +26,13 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     private final WorldProvider worldProvider;
     private final Scheduler scheduler;
     private final PluginInformation pluginInformation;
+    private final DebugLogger debugLogger;
 
     public SlimeDogCore() {
         // These are all simple wrappers that do not use any bukkit code during
         // initialization.
         // As such, it is safe to initialize them at plugin instance initialization
+        debugLogger = new DebugLogger(getLogger(), () -> false);
         configManager = new ConfigManager(this);
         resourceProvider = new ResourceProvider(this);
         pluginManager = new PluginManager(this);
@@ -81,6 +84,11 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     @Override
     public SDCPluginInformation getPluginInformation() {
         return pluginInformation;
+    }
+
+    @Override
+    public SDCDebugLogger getDebugLogger() {
+        return debugLogger;
     }
 
 }

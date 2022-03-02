@@ -7,6 +7,7 @@ import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
+import dev.ratas.slimedogcore.api.utils.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;

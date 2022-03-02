@@ -1,4 +1,4 @@
-package dev.ratas.slimedogcore.impl;
+package dev.ratas.slimedogcore.impl.utils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;

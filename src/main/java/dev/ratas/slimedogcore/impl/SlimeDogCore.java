@@ -4,11 +4,11 @@ import java.io.File;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import dev.ratas.slimedogcore.api.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
+import dev.ratas.slimedogcore.api.utils.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
@@ -16,6 +16,7 @@ import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.scheduler.Scheduler;
+import dev.ratas.slimedogcore.impl.utils.DebugLogger;
 import dev.ratas.slimedogcore.impl.wrappers.PluginInformation;
 import dev.ratas.slimedogcore.impl.wrappers.PluginManager;
 import dev.ratas.slimedogcore.impl.wrappers.ResourceProvider;

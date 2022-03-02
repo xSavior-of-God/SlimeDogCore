@@ -21,6 +21,10 @@ public class DebugLogger implements SDCDebugLogger {
         this(delegate, enableChecker, new AllowAllStrategy(), prefix);
     }
 
+    public DebugLogger(Logger delegate, Supplier<Boolean> enableChecker, SDCSpamStrategy spamStrategy) {
+        this(delegate, enableChecker, spamStrategy, DEFAULT_PREFIX);
+    }
+
     public DebugLogger(Logger delegate, Supplier<Boolean> enableChecker, SDCSpamStrategy spamStrategy, String prefix) {
         this.delegate = delegate;
         this.enableChecker = enableChecker;

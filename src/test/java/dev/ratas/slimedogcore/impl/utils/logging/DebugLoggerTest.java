@@ -1,4 +1,4 @@
-package dev.ratas.slimedogcore.impl.utils;
+package dev.ratas.slimedogcore.impl.utils.logging;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 
 public class DebugLoggerTest {
     private static final DelegatedLogger DELEGATE = new DelegatedLogger();

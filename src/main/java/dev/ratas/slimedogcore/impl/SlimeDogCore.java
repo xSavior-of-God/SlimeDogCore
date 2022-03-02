@@ -7,11 +7,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import dev.ratas.slimedogcore.api.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
+import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
+import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.scheduler.Scheduler;
 import dev.ratas.slimedogcore.impl.wrappers.PluginInformation;
@@ -27,6 +29,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     private final Scheduler scheduler;
     private final PluginInformation pluginInformation;
     private final DebugLogger debugLogger;
+    private final BaseSettings baseSettings;
 
     public SlimeDogCore() {
         // These are all simple wrappers that do not use any bukkit code during
@@ -39,6 +42,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
         worldProvider = new WorldProvider(this);
         scheduler = new Scheduler(this);
         pluginInformation = new PluginInformation(this);
+        baseSettings = new BaseSettings(() -> getDefaultConfig());
     }
 
     @Override
@@ -89,6 +93,11 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     @Override
     public SDCDebugLogger getDebugLogger() {
         return debugLogger;
+    }
+
+    @Override
+    public SDCBaseSettings getBaseSettings() {
+        return baseSettings;
     }
 
 }

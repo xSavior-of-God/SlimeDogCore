@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
+import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
@@ -105,5 +106,7 @@ public interface SlimeDogPlugin {
     default SDCCustomConfig getDefaultConfig() {
         return getCustomConfigManager().getDefaultConfig();
     }
+
+    SDCBaseSettings getBaseSettings();
 
 }

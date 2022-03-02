@@ -60,9 +60,9 @@ public class DebugLoggerTest {
         Assertions.assertEquals(1, nr.get(), "Expected the consumer to be called exactly once");
     }
 
-    private static final class DelegatedLogger extends Logger {
+    public static final class DelegatedLogger extends Logger {
         private static final String NAME = "[Test]";
-        private Consumer<LogRecord> consumer = null;
+        public Consumer<LogRecord> consumer = null;
 
         protected DelegatedLogger() {
             super(NAME, null);

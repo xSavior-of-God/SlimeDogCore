@@ -17,12 +17,15 @@ import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.scheduler.Scheduler;
 import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
+import dev.ratas.slimedogcore.impl.utils.logging.DisallowWithinTimeStrategy;
 import dev.ratas.slimedogcore.impl.wrappers.PluginInformation;
 import dev.ratas.slimedogcore.impl.wrappers.PluginManager;
 import dev.ratas.slimedogcore.impl.wrappers.ResourceProvider;
 import dev.ratas.slimedogcore.impl.wrappers.WorldProvider;
 
 public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
+    private static final long BLOCK_IDENTICAL_DEBUG_MSG_MS = 10 * 1000L;
+    private static final long CLEAR_DEBUG_LOGGER_CACHE_MS = 10 * 60 * 1000L; // every 10 minutes
     private final ConfigManager configManager;
     private final ResourceProvider resourceProvider;
     private final PluginManager pluginManager;
@@ -36,7 +39,8 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
         // These are all simple wrappers that do not use any bukkit code during
         // initialization.
         // As such, it is safe to initialize them at plugin instance initialization
-        debugLogger = new DebugLogger(getLogger(), () -> getBaseSettings().isDebugModeEnabled());
+        debugLogger = new DebugLogger(getLogger(), () -> getBaseSettings().isDebugModeEnabled(),
+                new DisallowWithinTimeStrategy(BLOCK_IDENTICAL_DEBUG_MSG_MS, CLEAR_DEBUG_LOGGER_CACHE_MS));
         configManager = new ConfigManager(this);
         resourceProvider = new ResourceProvider(this);
         pluginManager = new PluginManager(this);

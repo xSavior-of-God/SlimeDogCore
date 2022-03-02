@@ -1,4 +1,4 @@
-package dev.ratas.slimedogcore.impl.config.settings;
+package dev.ratas.slimedogcore.impl.config;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;

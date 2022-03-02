@@ -35,7 +35,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
         // These are all simple wrappers that do not use any bukkit code during
         // initialization.
         // As such, it is safe to initialize them at plugin instance initialization
-        debugLogger = new DebugLogger(getLogger(), () -> false);
+        debugLogger = new DebugLogger(getLogger(), () -> getBaseSettings().isDebugModeEnabled());
         configManager = new ConfigManager(this);
         resourceProvider = new ResourceProvider(this);
         pluginManager = new PluginManager(this);

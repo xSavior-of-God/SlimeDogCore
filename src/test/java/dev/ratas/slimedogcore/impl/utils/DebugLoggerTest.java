@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
+
 public class DebugLoggerTest {
     private static final DelegatedLogger DELEGATE = new DelegatedLogger();
     private DebugLogger logger;

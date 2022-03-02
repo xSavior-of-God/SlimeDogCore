@@ -7,14 +7,14 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
-import dev.ratas.slimedogcore.api.utils.SDCDebugLogger;
+import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
-import dev.ratas.slimedogcore.impl.utils.DebugLogger;
+import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 
 public class MockPlugin implements SlimeDogPlugin {
     public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");

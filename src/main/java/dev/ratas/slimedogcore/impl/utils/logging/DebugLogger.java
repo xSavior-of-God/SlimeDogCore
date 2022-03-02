@@ -1,9 +1,9 @@
-package dev.ratas.slimedogcore.impl.utils;
+package dev.ratas.slimedogcore.impl.utils.logging;
 
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 
-import dev.ratas.slimedogcore.api.utils.SDCDebugLogger;
+import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 
 public class DebugLogger implements SDCDebugLogger {
     private static final String DEFAULT_PREFIX = "DEBUG: ";

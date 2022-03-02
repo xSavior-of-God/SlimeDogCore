@@ -1,4 +1,4 @@
-package dev.ratas.slimedogcore.api.utils;
+package dev.ratas.slimedogcore.api.utils.logger;
 
 public interface SDCDebugLogger {
 

@@ -34,9 +34,11 @@ public class SubCommandTest {
     private AtomicInteger times;
     private MockRecipient recipient;
     private String[] curArgs;
+    private Consumer<String> onSend = null;
 
     @BeforeEach
     public void setup() {
+        onSend = null;
         times = new AtomicInteger(0);
         Consumer<String[]> consumer = (args) -> {
             times.incrementAndGet();
@@ -46,6 +48,9 @@ public class SubCommandTest {
         };
         sub = new MockSubCommand(SUB_NAME, SUB_PERM, SUB_USAGE, consumer, consumer);
         recipient = new MockRecipient((m, b) -> {
+            if (onSend != null) {
+                onSend.accept(m);
+            }
         });
         parent = new MockParentCommand(sub);
         curArgs = Arrays.copyOf(ALL_ARGS.toArray(new String[0]), ALL_ARGS.size());
@@ -84,9 +89,30 @@ public class SubCommandTest {
     }
 
     @Test
-    public void test_SuCommand_foundWithLowercase() {
+    public void test_SubCommand_foundWithLowercase() {
         curArgs[0] = SUB_NAME.toLowerCase();
         parent.onCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+    }
+
+    @Test
+    public void test_noArgsSendsUsage() {
+        String usage = parent.getUsage(recipient);
+        onSend = msg -> Assertions.assertEquals(usage, msg);
+        parent.onCommand(recipient, new String[] {}, Collections.emptyList());
+    }
+
+    @Test
+    public void test_noArgsSendsUsageOfBothSubs() {
+        MockSubCommand sub2 = new MockSubCommand("othersub", "some.perms", "/use some other one", null, null);
+        parent.addSubCommand(sub2);
+        String usage = parent.getUsage(recipient);
+        onSend = msg -> Assertions.assertEquals(usage, msg);
+        parent.onCommand(recipient, new String[] {}, Collections.emptyList());
+        Assertions.assertEquals(2, usage.split("\n").length, "Should have the usage for both sub-commands");
+        Assertions.assertTrue(usage.contains(sub.getUsage(recipient, new String[] {})),
+                "Should contain usage for first sub-command");
+        Assertions.assertTrue(usage.contains(sub2.getUsage(recipient, new String[] {})),
+                "Should contain usage for second sub-command");
     }
 
 }

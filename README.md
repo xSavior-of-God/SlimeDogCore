@@ -9,3 +9,23 @@ Please give credit where due.
 
 ## Resources known to incorporate SlimeDogCore
 [AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/)
+
+## How to incorporate SlimeDogCore in your plugin
+Add to `pom.xml` sections
+```
+    <repositories>
+        <repository>
+            <id>jitpack.io</id> <!-- For automated building of SlimeDogCore-->
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.SlimeDog</groupId>
+            <artifactId>SlimeDogCore</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+```

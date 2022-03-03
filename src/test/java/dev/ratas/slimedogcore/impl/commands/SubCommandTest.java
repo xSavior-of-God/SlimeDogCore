@@ -97,8 +97,13 @@ public class SubCommandTest {
     @Test
     public void test_noArgsSendsUsage() {
         String usage = parent.getUsage(recipient);
-        onSend = msg -> Assertions.assertEquals(usage, msg);
+        AtomicInteger times = new AtomicInteger(0);
+        onSend = msg -> {
+            times.incrementAndGet();
+            Assertions.assertEquals(usage, msg);
+        };
         parent.onCommand(recipient, new String[] {}, Collections.emptyList());
+        Assertions.assertEquals(1, times.get(), "The usage should sent exactly once");
     }
 
     @Test
@@ -106,13 +111,18 @@ public class SubCommandTest {
         MockSubCommand sub2 = new MockSubCommand("othersub", "some.perms", "/use some other one", null, null);
         parent.addSubCommand(sub2);
         String usage = parent.getUsage(recipient);
-        onSend = msg -> Assertions.assertEquals(usage, msg);
+        AtomicInteger times = new AtomicInteger(0);
+        onSend = msg -> {
+            times.incrementAndGet();
+            Assertions.assertEquals(usage, msg);
+        };
         parent.onCommand(recipient, new String[] {}, Collections.emptyList());
         Assertions.assertEquals(2, usage.split("\n").length, "Should have the usage for both sub-commands");
         Assertions.assertTrue(usage.contains(sub.getUsage(recipient, new String[] {})),
                 "Should contain usage for first sub-command");
         Assertions.assertTrue(usage.contains(sub2.getUsage(recipient, new String[] {})),
                 "Should contain usage for second sub-command");
+        Assertions.assertEquals(1, times.get(), "The usage should sent exactly once");
     }
 
 }

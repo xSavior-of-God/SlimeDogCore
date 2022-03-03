@@ -54,6 +54,17 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
         return true;
     }
 
+    @Override
+    public String getUsage(SDCRecipient recipient) {
+        List<String> usages = new ArrayList<>();
+        String[] args = new String[] {};
+        for (String subName : getApplicableSubCommandNames(recipient)) {
+            SDCSubCommand sc = getSubCommand(subName);
+            usages.add(sc.getUsage(recipient, args));
+        }
+        return String.join("\n", usages);
+    }
+
     protected String[] removeFirstArg(String[] args) {
         return Arrays.copyOfRange(args, 1, args.length);
     }

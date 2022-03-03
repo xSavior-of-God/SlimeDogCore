@@ -22,4 +22,8 @@ public abstract class MessagesBase {
         config.reloadConfig();
     }
 
+    protected MessageSection getSubsection(String path) {
+        return new MessageSection(config.getConfig().getConfigurationSection(path));
+    }
+
 }

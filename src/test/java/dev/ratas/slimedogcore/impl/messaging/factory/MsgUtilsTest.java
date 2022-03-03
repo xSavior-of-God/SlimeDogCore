@@ -112,4 +112,383 @@ public class MsgUtilsTest {
                 false);
     }
 
+    @Test
+    public void test_twoToOneReplacesBoth() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String raw = "raw (2->1) message " + ph1 + " and more with " + ph2 + "";
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.twoToOneContextDelegator(ph1, s -> s, ph2, s -> s, raw);
+        String replacement = "some STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement), false);
+    }
+
+    @Test
+    public void test_twoToOneReplacesaSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String raw = "raw (2->1) message " + ph1 + " and more with " + ph2 + "";
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.twoToOneContextDelegator(ph1,
+                s -> String.valueOf(s.t), ph2, s -> String.valueOf(s.u), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair, raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)),
+                false);
+    }
+
+    @Test
+    public void test_threeToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + " and more with " + ph2 + "";
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.twoToOneContextDelegator(ph1, p -> p, ph2, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement), false);
+    }
+
+    @Test
+    public void test_threeToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + " and more with " + ph2 + "";
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.threeToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()),
+                false);
+    }
+
+    @Test
+    public void test_fourToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + " and more with " + ph2 + " and then " + ph4;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.fourToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement), false);
+    }
+
+    @Test
+    public void test_fourToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + " and more with " + ph2 + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.fourToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName()),
+                false);
+    }
+
+    @Test
+    public void test_fiveToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph1 + " and more with " + ph2 + " and then " + ph4;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.fiveToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement), false);
+    }
+
+    @Test
+    public void test_fiveToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph2 + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.fiveToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)),
+                false);
+    }
+
+    @Test
+    public void test_sixToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph1 + " and more with " + ph2 + " and then " + ph4 + ph6;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.sixToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, ph6, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement), false);
+    }
+
+    @Test
+    public void test_sixToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String raw = ph3 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2 + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.sixToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), ph6,
+                p -> String.valueOf(p.u - p.t), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t)),
+                false);
+    }
+
+    @Test
+    public void test_sevenToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph7 + ph1 + " and more with " + ph2 + " and then " + ph4
+                + ph6;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.sevenToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, ph6, p -> p, ph7, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement).replace(ph7, replacement), false);
+    }
+
+    @Test
+    public void test_sevenToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String raw = ph3 + ph7 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2 + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.sevenToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), ph6,
+                p -> String.valueOf(p.u - p.t), ph7, p -> String.valueOf(p.t - p.u), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t))
+                        .replace(ph7, String.valueOf(pair.t - pair.u)),
+                false);
+    }
+
+    @Test
+    public void test_eightToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph7 + ph1 + " and more with " + ph2 + ph8 + " and then " + ph4
+                + ph6;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.eightToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, ph6, p -> p, ph7, p -> p, ph8, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement).replace(ph7, replacement).replace(ph8, replacement), false);
+    }
+
+    @Test
+    public void test_eightToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String raw = ph8 + ph3 + ph7 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2 + " still "
+                + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.eightToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), ph6,
+                p -> String.valueOf(p.u - p.t), ph7, p -> String.valueOf(p.t - p.u), ph8,
+                p -> String.valueOf(p.t * p.u), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t))
+                        .replace(ph7, String.valueOf(pair.t - pair.u)).replace(ph8, String.valueOf(pair.u * pair.t)),
+                false);
+    }
+
+    @Test
+    public void test_nineToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph9 + ph7 + ph1 + " and more with " + ph2 + ph8 + " and then "
+                + ph4 + ph6;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.nineToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, ph6, p -> p, ph7, p -> p, ph8, p -> p, ph9, p -> p, raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement).replace(ph7, replacement).replace(ph8, replacement)
+                .replace(ph9, replacement), false);
+    }
+
+    @Test
+    public void test_nineToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String raw = ph8 + ph3 + ph9 + ph7 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2
+                + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.nineToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), ph6,
+                p -> String.valueOf(p.u - p.t), ph7, p -> String.valueOf(p.t - p.u), ph8,
+                p -> String.valueOf(p.t * p.u), ph9, p -> String.valueOf(p.t * p.t), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t))
+                        .replace(ph7, String.valueOf(pair.t - pair.u)).replace(ph8, String.valueOf(pair.u * pair.t))
+                        .replace(ph9, String.valueOf(pair.t * pair.t)),
+                false);
+    }
+
+    @Test
+    public void test_tenToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String ph10 = "(ph10)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph7 + ph1 + " and more with " + ph2 + ph8 + ph10
+                + " and then " + ph4 + ph9 + ph6;
+        SDCSingleContextMessageFactory<String> mf = MsgUtil.tenToOneContextDelegator(ph1, p -> p, ph2, p -> p, ph3,
+                p -> p, ph4, p -> p, ph5, p -> p, ph6, p -> p, ph7, p -> p, ph8, p -> p, ph9, p -> p, ph10, p -> p,
+                raw);
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement).replace(ph7, replacement).replace(ph8, replacement)
+                .replace(ph9, replacement).replace(ph10, replacement), false);
+    }
+
+    @Test
+    public void test_tenToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String ph10 = "(ph10)";
+        String raw = ph8 + ph3 + ph7 + ph10 + ph9 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2
+                + " still " + ph4;
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = MsgUtil.tenToOneContextDelegator(ph1,
+                p -> String.valueOf(p.t), ph2, p -> String.valueOf(p.u), ph3, p -> p.getClass().getName(), ph4,
+                p -> p.getClass().getPackageName(), ph5, p -> String.valueOf(p.u + p.t), ph6,
+                p -> String.valueOf(p.u - p.t), ph7, p -> String.valueOf(p.t - p.u), ph8,
+                p -> String.valueOf(p.t * p.u), ph9, p -> String.valueOf(p.t * p.t), ph10,
+                p -> String.valueOf(p.u * p.u), raw);
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t))
+                        .replace(ph7, String.valueOf(pair.t - pair.u)).replace(ph8, String.valueOf(pair.u * pair.t))
+                        .replace(ph9, String.valueOf(pair.t * pair.t)).replace(ph10, String.valueOf(pair.u * pair.u)),
+                false);
+    }
+
+    public final static class Pair<T, U> {
+        private final T t;
+        private final U u;
+
+        public Pair(T t, U u) {
+            this.t = t;
+            this.u = u;
+        }
+
+        public T getFirst() {
+            return t;
+        }
+
+        public U getSecond() {
+            return u;
+        }
+    }
+
 }

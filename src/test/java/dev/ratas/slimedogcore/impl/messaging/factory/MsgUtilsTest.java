@@ -473,6 +473,77 @@ public class MsgUtilsTest {
                 false);
     }
 
+    @Test
+    public void test_tenBuilderToOneReplacesAll() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String ph10 = "(ph10)";
+        String raw = ph3 + ph5 + " raw (3->1) message " + ph7 + ph1 + " and more with " + ph2 + ph8 + ph10
+                + " and then " + ph4 + ph9 + ph6;
+        MsgUtil.MultipleToOneBuilder<String> builder = new MsgUtil.MultipleToOneBuilder<>(raw);
+        builder.with(ph1, p -> p);
+        builder.with(ph2, p -> p);
+        builder.with(ph3, p -> p);
+        builder.with(ph4, p -> p);
+        builder.with(ph5, p -> p);
+        builder.with(ph6, p -> p);
+        builder.with(ph7, p -> p);
+        builder.with(ph8, p -> p);
+        builder.with(ph9, p -> p);
+        builder.with(ph10, p -> p);
+        SDCSingleContextMessageFactory<String> mf = builder.build();
+        String replacement = "some () STR";
+        assertNextSingleMessage(mf, replacement, raw.replace(ph1, replacement).replace(ph2, replacement)
+                .replace(ph3, replacement).replace(ph4, replacement).replace(ph5, replacement)
+                .replace(ph6, replacement).replace(ph7, replacement).replace(ph8, replacement)
+                .replace(ph9, replacement).replace(ph10, replacement), false);
+    }
+
+    @Test
+    public void test_tenBuilderToOneReplacesAllSeparately() {
+        String ph1 = "(ph1)";
+        String ph2 = "(ph2)";
+        String ph3 = "(ph3)";
+        String ph4 = "(ph4)";
+        String ph5 = "(ph5)";
+        String ph6 = "(ph6)";
+        String ph7 = "(ph7)";
+        String ph8 = "(ph8)";
+        String ph9 = "(ph9)";
+        String ph10 = "(ph10)";
+        String raw = ph8 + ph3 + ph7 + ph10 + ph9 + " raw (3->1) message " + ph1 + ph5 + " and more with " + ph6 + ph2
+                + " still " + ph4;
+        MsgUtil.MultipleToOneBuilder<Pair<Integer, Double>> builder = new MsgUtil.MultipleToOneBuilder<>(raw);
+        builder.with(ph1, p -> String.valueOf(p.t));
+        builder.with(ph2, p -> String.valueOf(p.u));
+        builder.with(ph3, p -> p.getClass().getName());
+        builder.with(ph4, p -> p.getClass().getPackageName());
+        builder.with(ph5, p -> String.valueOf(p.u + p.t));
+        builder.with(ph6, p -> String.valueOf(p.u - p.t));
+        builder.with(ph7, p -> String.valueOf(p.t - p.u));
+        builder.with(ph8, p -> String.valueOf(p.t * p.u));
+        builder.with(ph9, p -> String.valueOf(p.t * p.t));
+        builder.with(ph10, p -> String.valueOf(p.u * p.u));
+        SDCSingleContextMessageFactory<Pair<Integer, Double>> mf = builder.build();
+        int val1 = -10;
+        double val2 = 4.5;
+        Pair<Integer, Double> pair = new Pair<>(val1, val2);
+        assertNextSingleMessage(mf, pair,
+                raw.replace(ph1, String.valueOf(pair.t)).replace(ph2, String.valueOf(pair.u)).replace(ph3,
+                        pair.getClass().getName()).replace(ph4, pair.getClass().getPackageName())
+                        .replace(ph5, String.valueOf(pair.u + pair.t)).replace(ph6, String.valueOf(pair.u - pair.t))
+                        .replace(ph7, String.valueOf(pair.t - pair.u)).replace(ph8, String.valueOf(pair.u * pair.t))
+                        .replace(ph9, String.valueOf(pair.t * pair.t)).replace(ph10, String.valueOf(pair.u * pair.u)),
+                false);
+    }
+
     public final static class Pair<T, U> {
         private final T t;
         private final U u;

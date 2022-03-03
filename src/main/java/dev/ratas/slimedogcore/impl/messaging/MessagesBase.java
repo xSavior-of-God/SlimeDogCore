@@ -10,6 +10,10 @@ public abstract class MessagesBase {
         config.saveDefaultConfig();
     }
 
+    protected SDCCustomConfig getConfig() {
+        return config;
+    }
+
     protected String getRawMessage(String path, String def) {
         return config.getConfig().getString(path, def);
     }

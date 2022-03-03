@@ -42,7 +42,8 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     @Override
     public boolean onCommand(SDCRecipient sender, String[] args, List<String> opts) {
         if (args.length == 0) {
-            return false;
+            sender.sendRawMessage(getUsage(sender));
+            return true;
         }
         SDCSubCommand subCommand = getSubCommand(args[0]);
         if (subCommand == null || !subCommand.hasPermission(sender)) {

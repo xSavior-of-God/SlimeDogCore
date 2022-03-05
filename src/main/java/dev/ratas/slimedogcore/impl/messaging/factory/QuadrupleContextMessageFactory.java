@@ -14,7 +14,6 @@ public class QuadrupleContextMessageFactory<T1, T2, T3, T4> extends MessageFacto
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public SDCQuadrupleContextFactory<T1, T2, T3, T4> getContextFactory() {
         return (SDCQuadrupleContextFactory<T1, T2, T3, T4>) super.getContextFactory();
     }

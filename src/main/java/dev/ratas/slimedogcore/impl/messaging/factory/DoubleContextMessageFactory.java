@@ -14,7 +14,6 @@ public class DoubleContextMessageFactory<T1, T2> extends MessageFactory<SDCDoubl
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public SDCDoubleContextFactory<T1, T2> getContextFactory() {
         return (SDCDoubleContextFactory<T1, T2>) super.getContextFactory();
     }

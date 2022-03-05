@@ -14,7 +14,6 @@ public class TripleContextMessageFactory<T1, T2, T3> extends MessageFactory<SDCT
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public SDCTripleContextFactory<T1, T2, T3> getContextFactory() {
         return (SDCTripleContextFactory<T1, T2, T3>) super.getContextFactory();
     }

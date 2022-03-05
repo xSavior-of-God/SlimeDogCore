@@ -33,7 +33,9 @@ public class ConfigManager implements SDCCustomConfigManager {
 
     @Override
     public SDCCustomConfig getDefaultConfig() {
-        return getConfig(DEFAULT_CONFIG_NAME);
+        SDCCustomConfig config = getConfig(DEFAULT_CONFIG_NAME);
+        config.saveDefaultConfig();
+        return config;
     }
 
 }

@@ -14,7 +14,7 @@ public class MockResourceProvider implements SDCResourceProvider {
 
     @Override
     public void saveResource(String resourcePath, boolean replace) {
-        throw new IllegalArgumentException("Mock Resource provider should not save resources");
+        System.err.println("Mock Resource provider should not save resources");
     }
 
     public static class EmptyInputStream extends InputStream {

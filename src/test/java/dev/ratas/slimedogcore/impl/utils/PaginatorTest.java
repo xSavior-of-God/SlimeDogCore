@@ -2,6 +2,7 @@ package dev.ratas.slimedogcore.impl.utils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -213,9 +214,12 @@ public class PaginatorTest {
     @Test
     public void test_paginatorPaginateDoesWork() {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        AtomicInteger times = new AtomicInteger(0);
         Paginator.paginate(list, 1, 5, i -> {
             Assertions.assertEquals(list.get(i - 1), i);
+            times.incrementAndGet();
         });
+        Assertions.assertEquals(5, times.get());
     }
 
 }

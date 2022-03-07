@@ -16,4 +16,9 @@ public class PlayerRecipient extends MessageRecipient implements SDCPlayerRecipi
         return ((Player) delegate).getLocation();
     }
 
+    @Override
+    public boolean isPlayer() {
+        return true;
+    }
+
 }

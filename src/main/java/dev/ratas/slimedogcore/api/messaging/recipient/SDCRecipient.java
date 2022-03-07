@@ -31,4 +31,11 @@ public interface SDCRecipient {
      */
     boolean hasPermission(String perms);
 
+    /**
+     * Checks whether the recipient represents an online player.
+     *
+     * @return true if the recipient is an online player, false otherwise.
+     */
+    boolean isPlayer();
+
 }

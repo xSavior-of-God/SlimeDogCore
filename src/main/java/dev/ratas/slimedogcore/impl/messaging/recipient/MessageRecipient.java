@@ -110,4 +110,9 @@ public class MessageRecipient implements SDCRecipient {
         }
     }
 
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
 }

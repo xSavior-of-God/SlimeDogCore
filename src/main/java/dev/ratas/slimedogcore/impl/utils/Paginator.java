@@ -103,6 +103,11 @@ public class Paginator<T> implements Iterable<T> {
         return getOnPage().iterator();
     }
 
+    /**
+     * Paginates the page according to a worker.
+     *
+     * @param worker the worker
+     */
     public void paginate(Consumer<T> worker) {
         for (T t : getOnPage()) {
             worker.accept(t);

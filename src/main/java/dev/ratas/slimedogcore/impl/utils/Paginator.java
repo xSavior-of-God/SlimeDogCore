@@ -36,22 +36,60 @@ public class Paginator<T> implements Iterable<T> {
         return true;
     }
 
+    /**
+     * Gets the page described by this paginator.
+     *
+     * @return the page
+     */
     public int getPage() {
         return page;
     }
 
+    /**
+     * Checks if the page is partial. If the page is partial, fewer items are shown
+     * on it than is described by getPerPage.
+     *
+     * @return true if the page is partial, false otherwise
+     */
+    public boolean isPartial() {
+        return getPageEnd() != getPageEnd(page, perPage);
+    }
+
+    /**
+     * Gets the number of items shown on the page in this paginator. This may be
+     * different than the number of items on getOnPage() for the last page if teh
+     * page is incomplete (the list does not exactly divide into the number of items
+     * per page).
+     *
+     * @return the number of items on a page
+     */
     public int getPerPage() {
         return perPage;
     }
 
+    /**
+     * Gets the raw (starting from 0) page start index.
+     *
+     * @return the page start index
+     */
     public int getPageStart() {
         return pageStart;
     }
 
+    /**
+     * Gets the raw (excluded) page end index.
+     *
+     * @return page end index
+     */
     public int getPageEnd() {
         return pageEnd;
     }
 
+    /**
+     * Gets the list of items on this page. This is calculated on request.
+     *
+     * @return list of items on the page
+     */
     public List<T> getOnPage() {
         List<T> list = new ArrayList<>();
         for (int i = pageStart; i < pageEnd; i++) {
@@ -95,6 +133,17 @@ public class Paginator<T> implements Iterable<T> {
         return getPageStart(page + 1, perPage);
     }
 
+    /**
+     * Checks if page is valid for a given list (of any type). A page is not valid
+     * if there are not enough items in the list for the first item to be shown on
+     * that page. The only exception is page 1 wchich will always be valid unless
+     * the number of items per page is invalid (non-positive).
+     * 
+     * @param list    the list of items
+     * @param page    the page in question
+     * @param perPage number of items per page
+     * @return true if page exists, false otherwise
+     */
     public static boolean isValidPage(List<?> list, int page, int perPage) {
         try {
             new Paginator<>(list, page, perPage);

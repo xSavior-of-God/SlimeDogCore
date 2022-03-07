@@ -210,4 +210,12 @@ public class PaginatorTest {
         }
     }
 
+    @Test
+    public void test_paginatorPaginateDoesWork() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator.paginate(list, 1, 5, i -> {
+            Assertions.assertEquals(list.get(i - 1), i);
+        });
+    }
+
 }

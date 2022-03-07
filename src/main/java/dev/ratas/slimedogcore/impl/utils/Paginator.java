@@ -3,6 +3,7 @@ package dev.ratas.slimedogcore.impl.utils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.apache.commons.lang.Validate;
 
@@ -100,6 +101,13 @@ public class Paginator<T> implements Iterable<T> {
             return true;
         } catch (IllegalArgumentException e) {
             return false;
+        }
+    }
+
+    public static <T> void paginate(List<T> list, int page, int perPage, Consumer<T> worker) {
+        Paginator<T> paginator = new Paginator<>(list, page, perPage);
+        for (T t : paginator.getOnPage()) {
+            worker.accept(t);
         }
     }
 

@@ -222,4 +222,46 @@ public class PaginatorTest {
         Assertions.assertEquals(5, times.get());
     }
 
+    @Test
+    public void test_paginatorPage1OfLongNotPartial() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        Assertions.assertFalse(pa.isPartial());
+    }
+
+    @Test
+    public void test_paginatorPage1OfEmptyIsPartial() {
+        List<Integer> list = Arrays.asList();
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        Assertions.assertTrue(pa.isPartial());
+    }
+
+    @Test
+    public void test_paginatorPage1OfShortIsPartial() {
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        Assertions.assertTrue(pa.isPartial());
+    }
+
+    @Test
+    public void test_paginatorPage1OfExactNotPartial() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        Assertions.assertFalse(pa.isPartial());
+    }
+
+    @Test
+    public void test_paginatorMiddlePageOfLongNotPartial() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator<Integer> pa = new Paginator<>(list, 2, 5);
+        Assertions.assertFalse(pa.isPartial());
+    }
+
+    @Test
+    public void test_paginatorLastPageOfLongNotPartial() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator<Integer> pa = new Paginator<>(list, 3, 5);
+        Assertions.assertTrue(pa.isPartial());
+    }
+
 }

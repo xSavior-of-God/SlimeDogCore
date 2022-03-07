@@ -192,4 +192,22 @@ public class PaginatorTest {
         Assertions.assertEquals(list.subList(10, 12), pa.getOnPage());
     }
 
+    @Test
+    public void test_paginatorGetOnPageIteratesOverAll() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        for (int i : pa.getOnPage()) {
+            Assertions.assertEquals(list.get(i - 1), i);
+        }
+    }
+
+    @Test
+    public void test_paginatorIterableEquivelantToGetOnPage() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Paginator<Integer> pa = new Paginator<>(list, 1, 5);
+        for (int i : pa) {
+            Assertions.assertEquals(list.get(i - 1), i);
+        }
+    }
+
 }

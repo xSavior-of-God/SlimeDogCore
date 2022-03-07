@@ -1,11 +1,12 @@
 package dev.ratas.slimedogcore.impl.utils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
-public class Paginator<T> {
+public class Paginator<T> implements Iterable<T> {
     private final List<T> list;
     private final int page;
     private final int perPage;
@@ -56,6 +57,11 @@ public class Paginator<T> {
             list.add(this.list.get(i));
         }
         return list;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return getOnPage().iterator();
     }
 
     @Override

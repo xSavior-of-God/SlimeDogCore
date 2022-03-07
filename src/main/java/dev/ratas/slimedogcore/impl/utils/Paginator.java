@@ -103,6 +103,12 @@ public class Paginator<T> implements Iterable<T> {
         return getOnPage().iterator();
     }
 
+    public void paginate(Consumer<T> worker) {
+        for (T t : getOnPage()) {
+            worker.accept(t);
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("[Paginator: page %d with %d on page of %d length array, current %d-%d]", page, perPage,
@@ -168,9 +174,7 @@ public class Paginator<T> implements Iterable<T> {
      */
     public static <T> void paginate(List<T> list, int page, int perPage, Consumer<T> worker) {
         Paginator<T> paginator = new Paginator<>(list, page, perPage);
-        for (T t : paginator.getOnPage()) {
-            worker.accept(t);
-        }
+        paginator.paginate(worker);
     }
 
 }

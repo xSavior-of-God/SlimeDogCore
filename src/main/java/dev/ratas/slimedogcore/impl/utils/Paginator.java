@@ -104,6 +104,19 @@ public class Paginator<T> implements Iterable<T> {
         }
     }
 
+    /**
+     * Paginates the given page of the given list by doing the work as specified by
+     * the worker.
+     *
+     * If the intput (page, per page) is incorrect, an exception is thrown.
+     *
+     * @param <T>     the type of items in the list
+     * @param list    the list of items to paginate
+     * @param page    the page to work on
+     * @param perPage number of items per page
+     * @param worker  the worker for items on the page
+     * @throws IllegalArgumentException if page and/or perPage is incorrect
+     */
     public static <T> void paginate(List<T> list, int page, int perPage, Consumer<T> worker) {
         Paginator<T> paginator = new Paginator<>(list, page, perPage);
         for (T t : paginator.getOnPage()) {

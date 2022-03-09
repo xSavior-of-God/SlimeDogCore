@@ -27,6 +27,10 @@ public class CustomYamlConfig implements SDCCustomConfig {
     private YamlConfiguration customConfig;
     private ConfigurationWrapper wrapper;
 
+    public CustomYamlConfig(SDCResourceProvider resourceProvider, File file) {
+        this(resourceProvider, file, true);
+    }
+
     public CustomYamlConfig(SDCResourceProvider resourceProvider, File file, boolean createWhenMissing) {
         this.resourceProvider = resourceProvider;
         this.file = file;

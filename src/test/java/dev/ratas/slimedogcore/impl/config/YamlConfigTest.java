@@ -15,7 +15,7 @@ public class YamlConfigTest {
     @BeforeEach
     public void setup() {
         realConfigFile = getFrom("src/test/resources/config.yml".split("/"));
-        config = new CustomYamlConfig(new MockResourceProvider(), realConfigFile);
+        config = new CustomYamlConfig(new MockResourceProvider(), realConfigFile, false);
     }
 
     @Test

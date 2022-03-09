@@ -18,7 +18,7 @@ import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 
 public class MockPlugin implements SlimeDogPlugin {
     public static final Logger LOGGER = Logger.getLogger("[TEST] SDC");
-    public final ConfigManager configManager = new ConfigManager(this);
+    public final ConfigManager configManager = new ConfigManager(this, false); // do not save configs
     public final MockPluginManager pluginManager = new MockPluginManager();
     public final MockWorldProvider worldProvider = new MockWorldProvider();
     public final MockScheduler scheduler = new MockScheduler();

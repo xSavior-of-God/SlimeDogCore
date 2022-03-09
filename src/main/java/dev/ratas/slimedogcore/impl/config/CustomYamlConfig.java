@@ -23,16 +23,21 @@ import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 public class CustomYamlConfig implements SDCCustomConfig {
     private final SDCResourceProvider resourceProvider;
     private final File file;
+    private final boolean createWhenMissing;
     private YamlConfiguration customConfig;
     private ConfigurationWrapper wrapper;
 
-    public CustomYamlConfig(SDCResourceProvider resourceProvider, File file) {
+    public CustomYamlConfig(SDCResourceProvider resourceProvider, File file, boolean createWhenMissing) {
         this.resourceProvider = resourceProvider;
         this.file = file;
+        this.createWhenMissing = createWhenMissing;
     }
 
     @Override
     public void reloadConfig() throws ConfigReloadException {
+        if (createWhenMissing) {
+            saveDefaultConfig();
+        }
         customConfig = loadConfiguration(file);
         wrapper = new ConfigurationWrapper(customConfig);
 

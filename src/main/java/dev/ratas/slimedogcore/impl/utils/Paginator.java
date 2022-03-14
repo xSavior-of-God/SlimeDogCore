@@ -30,7 +30,7 @@ public class Paginator<T> implements Iterable<T> {
             return true;
         }
         int pageStart = getPageStart(page, this.perPage);
-        if (pageStart > this.list.size()) {
+        if (pageStart >= this.list.size()) {
             return false;
         }
         return true;

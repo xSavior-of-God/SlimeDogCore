@@ -286,4 +286,10 @@ public class PaginatorTest {
         Assertions.assertEquals(5, times.get());
     }
 
+    @Test
+    public void test_paginatorDoesNotShowEmptyPage() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Paginator<>(list, 2, 4));
+    }
+
 }

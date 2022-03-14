@@ -202,4 +202,11 @@ public interface SDCConfiguration {
      */
     SDCConfiguration getConfigurationSection(String path);
 
+    /**
+     * Gets the default section defined (if it exists) or null.
+     *
+     * @return the default section if defined, else null
+     */
+    SDCConfiguration getDefaultSection();
+
 }

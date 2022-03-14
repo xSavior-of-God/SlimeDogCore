@@ -136,4 +136,13 @@ public class ConfigurationWrapper implements SDCConfiguration {
         return new ConfigurationWrapper(section);
     }
 
+    @Override
+    public SDCConfiguration getDefaultSection() {
+        ConfigurationSection defSect = delegate.getDefaultSection();
+        if (defSect == null) {
+            return null;
+        }
+        return new ConfigurationWrapper(defSect);
+    }
+
 }

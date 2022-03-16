@@ -118,6 +118,15 @@ public interface SDCConfiguration {
     int getInt(String path, int def);
 
     /**
+     * Checks if the value specified at the path is an integer. If there is a value
+     * specified but it cannot be used as an integer, this method will return false.
+     *
+     * @param path the path in question
+     * @return true only if a value is specified and it is an integer
+     */
+    boolean isInt(String path);
+
+    /**
      * Gets the boolean specified at the path or the default or false
      *
      * @param path the path in question
@@ -133,6 +142,15 @@ public interface SDCConfiguration {
      * @return the boolean at the path (if present) or the specified default
      */
     boolean getBoolean(String path, boolean def);
+
+    /**
+     * Checks if the value specified at the path is a boolean. If there is a value
+     * specified but it cannot be used as a boolean, this method will return false.
+     *
+     * @param path the path in question
+     * @return true only if a value is specified and it is a boolean
+     */
+    boolean isBoolean(String path);
 
     /**
      * Gets the double specified at the path or the default or 0
@@ -152,6 +170,15 @@ public interface SDCConfiguration {
     double getDouble(String path, double def);
 
     /**
+     * Checks if the value specified at the path is a double. If there is a value
+     * specified but it cannot be used as a double, this method will return false.
+     *
+     * @param path the path in question
+     * @return true only if a value is specified and it is a double
+     */
+    boolean isDouble(String path);
+
+    /**
      * Gets the long specified at the path or the default or 0
      *
      * @param path the path in question
@@ -169,6 +196,15 @@ public interface SDCConfiguration {
     long getLong(String path, long def);
 
     /**
+     * Checks if the value specified at the path is a long. If there is a value
+     * specified but it cannot be used as a long, this method will return false.
+     *
+     * @param path the path in question
+     * @return true only if a value is specified and it is a long
+     */
+    boolean isLong(String path);
+
+    /**
      * Gets the List of items specified at the path or the default or null
      *
      * @param path the path in question
@@ -184,6 +220,15 @@ public interface SDCConfiguration {
      * @return the double at the path (if present) or the specified default
      */
     List<?> getList(String path, List<?> def);
+
+    /**
+     * Checks if the value specified at the path is a list. If there is a value
+     * specified but it cannot be used as a list, this method will return false.
+     *
+     * @param path the path in question
+     * @return true only if a value is specified and it is a list
+     */
+    boolean isList(String path);
 
     /**
      * Gets the List of Strings specified at the path or the default or an emtpy

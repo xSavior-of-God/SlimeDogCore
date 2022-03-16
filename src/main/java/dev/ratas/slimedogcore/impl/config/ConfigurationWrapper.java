@@ -83,6 +83,11 @@ public class ConfigurationWrapper implements SDCConfiguration {
     }
 
     @Override
+    public boolean isInt(String path) {
+        return delegate.isInt(path);
+    }
+
+    @Override
     public boolean getBoolean(String path) {
         return delegate.getBoolean(path);
     }
@@ -90,6 +95,11 @@ public class ConfigurationWrapper implements SDCConfiguration {
     @Override
     public boolean getBoolean(String path, boolean def) {
         return delegate.getBoolean(path, def);
+    }
+
+    @Override
+    public boolean isBoolean(String path) {
+        return delegate.isBoolean(path);
     }
 
     @Override
@@ -103,6 +113,11 @@ public class ConfigurationWrapper implements SDCConfiguration {
     }
 
     @Override
+    public boolean isDouble(String path) {
+        return delegate.isDouble(path);
+    }
+
+    @Override
     public long getLong(String path) {
         return delegate.getLong(path);
     }
@@ -113,6 +128,11 @@ public class ConfigurationWrapper implements SDCConfiguration {
     }
 
     @Override
+    public boolean isLong(String path) {
+        return delegate.isLong(path);
+    }
+
+    @Override
     public List<?> getList(String path) {
         return delegate.getList(path);
     }
@@ -120,6 +140,11 @@ public class ConfigurationWrapper implements SDCConfiguration {
     @Override
     public List<?> getList(String path, List<?> def) {
         return delegate.getList(path, def);
+    }
+
+    @Override
+    public boolean isList(String path) {
+        return delegate.isList(path);
     }
 
     @Override

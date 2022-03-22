@@ -3,7 +3,7 @@ Core functionality for SlimeDog resources
 
 ⚠️ This is a work-in-progress.
 You are welcome to use it under the terms of the GPL3 license,
-with the understanding that changes may be made as it is incorporated in other SlimeDog projects.
+with the understanding that changes may be made as it is incorporated into other SlimeDog projects.
 
 Please give credit where due.
 

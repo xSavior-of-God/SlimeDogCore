@@ -10,7 +10,8 @@ Please give credit where due.
 📜 [Javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/)
 
 ## Resources known to incorporate SlimeDogCore
-[AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/)
+[AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
+[pHD](https://github.com/SlimeDog/pHD/)
 
 ## How to incorporate SlimeDogCore in your plugin
 Add to `pom.xml` sections

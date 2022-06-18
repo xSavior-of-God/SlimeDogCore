@@ -26,4 +26,8 @@ public abstract class MessagesBase {
         return new MessageSection(config.getConfig().getConfigurationSection(path));
     }
 
+    public boolean isEmpty() {
+        return config.getConfig().getKeys(true).isEmpty();
+    }
+
 }

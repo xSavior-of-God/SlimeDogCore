@@ -52,4 +52,18 @@ public class ConfigManagerTest {
                 "There should be no values in a non-existing (default) config");
     }
 
+    @Test
+    public void test_configManagerDifferentNameDifferentInstance() {
+        SDCCustomConfig c1 = manager.getConfig("c1.yml");
+        SDCCustomConfig c2 = manager.getConfig("c2.yml");
+        Assertions.assertNotSame(c1, c2, "Different files should refer to different instances");
+    }
+
+    @Test
+    public void test_configManagerSameNameSameInstance() {
+        SDCCustomConfig c1_1 = manager.getConfig("c1.yml");
+        SDCCustomConfig c1_2 = manager.getConfig("c1.yml");
+        Assertions.assertSame(c1_1, c1_2, "Same file name should refer to the same instance");
+    }
+
 }

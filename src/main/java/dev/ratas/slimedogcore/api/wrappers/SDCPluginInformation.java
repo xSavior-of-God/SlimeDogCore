@@ -1,5 +1,7 @@
 package dev.ratas.slimedogcore.api.wrappers;
 
+import java.util.List;
+
 public interface SDCPluginInformation {
 
     /**
@@ -29,5 +31,12 @@ public interface SDCPluginInformation {
      * @return the name of the plugin
      */
     String getPluginName();
+
+    /**
+     * Get the authors of the plugin.
+     *
+     * @return the authors of the plugin
+     */
+    List<String> getAuthors();
 
 }

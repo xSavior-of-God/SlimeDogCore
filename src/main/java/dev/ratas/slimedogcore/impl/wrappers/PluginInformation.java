@@ -1,5 +1,7 @@
 package dev.ratas.slimedogcore.impl.wrappers;
 
+import java.util.List;
+
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.impl.SlimeDogCore;
 
@@ -31,6 +33,11 @@ public class PluginInformation implements SDCPluginInformation {
     @Override
     public String getPluginName() {
         return plugin.getName();
+    }
+
+    @Override
+    public List<String> getAuthors() {
+        return plugin.getDescription().getAuthors();
     }
 
 }

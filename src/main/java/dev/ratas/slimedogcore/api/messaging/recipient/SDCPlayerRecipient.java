@@ -6,6 +6,7 @@ public interface SDCPlayerRecipient extends SDCRecipient {
 
     /**
      * Typo-d name for getLocation
+     *
      * @return
      */
     @Deprecated
@@ -17,5 +18,12 @@ public interface SDCPlayerRecipient extends SDCRecipient {
      * @return the location of the player
      */
     Location getLocation();
+
+    /**
+     * Get the name of this player.
+     *
+     * @return the player's name
+     */
+    String getName();
 
 }

@@ -26,4 +26,9 @@ public class PlayerRecipient extends MessageRecipient implements SDCPlayerRecipi
         return true;
     }
 
+    @Override
+    public String getName() {
+        return delegate.getName();
+    }
+
 }

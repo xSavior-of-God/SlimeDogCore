@@ -4,11 +4,12 @@ import java.io.File;
 
 import dev.ratas.slimedogcore.api.config.exceptions.ConfigReloadException;
 import dev.ratas.slimedogcore.api.config.exceptions.ConfigSaveException;
+import dev.ratas.slimedogcore.api.reload.SDCReloadable;
 
 /**
  * A custom config represented by a file.
  */
-public interface SDCCustomConfig {
+public interface SDCCustomConfig extends SDCReloadable {
 
     /**
      * Reloads the contents of the config.
@@ -44,5 +45,9 @@ public interface SDCCustomConfig {
      * @throws ConfigSaveException if the save fails for one reason or anotheru
      */
     void saveDefaultConfig() throws ConfigSaveException;
+
+    default void reload() {
+        reloadConfig();
+    }
 
 }

@@ -7,6 +7,7 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
+import dev.ratas.slimedogcore.api.reload.SDCReloadManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCOnlinePlayerProvider;
@@ -17,6 +18,7 @@ import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
+import dev.ratas.slimedogcore.impl.reload.ReloadManager;
 import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 
 public class MockPlugin implements SlimeDogPlugin {
@@ -32,6 +34,7 @@ public class MockPlugin implements SlimeDogPlugin {
     public final BaseSettings baseSettings = new BaseSettings(() -> getDefaultConfig());
     public final SDCRecipient console = new MessageRecipient(new MockSender(LOGGER));
     public final SDCOnlinePlayerProvider onlinePlayerProvider = new MockOnlinePlayerProvider();
+    public final ReloadManager reloadManager = new ReloadManager();
 
     public MockPlugin() {
         this(new File("."));
@@ -115,8 +118,12 @@ public class MockPlugin implements SlimeDogPlugin {
 
     @Override
     public SDCOnlinePlayerProvider getOnlinePlayerProvider() {
-        // TODO Auto-generated method stub
-        return null;
+        return onlinePlayerProvider;
+    }
+
+    @Override
+    public SDCReloadManager getReloadManager() {
+        return reloadManager;
     }
 
 }

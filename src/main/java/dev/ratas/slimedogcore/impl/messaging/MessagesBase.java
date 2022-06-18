@@ -1,8 +1,10 @@
 package dev.ratas.slimedogcore.impl.messaging;
 
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
+import dev.ratas.slimedogcore.api.reload.ReloadException;
+import dev.ratas.slimedogcore.api.reload.SDCReloadable;
 
-public abstract class MessagesBase {
+public abstract class MessagesBase implements SDCReloadable {
     private final SDCCustomConfig config;
 
     protected MessagesBase(SDCCustomConfig config) {
@@ -28,6 +30,11 @@ public abstract class MessagesBase {
 
     public boolean isEmpty() {
         return config.getConfig().getKeys(true).isEmpty();
+    }
+
+    @Override
+    public void reload() throws ReloadException {
+        config.reload();
     }
 
 }

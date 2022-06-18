@@ -10,6 +10,7 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
+import dev.ratas.slimedogcore.api.reload.SDCReloadManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCOnlinePlayerProvider;
@@ -20,6 +21,7 @@ import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
 import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
+import dev.ratas.slimedogcore.impl.reload.ReloadManager;
 import dev.ratas.slimedogcore.impl.scheduler.Scheduler;
 import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 import dev.ratas.slimedogcore.impl.utils.logging.DisallowWithinTimeStrategy;
@@ -43,12 +45,18 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     private final BaseSettings baseSettings = new BaseSettings(() -> getDefaultConfig());
     private final SDCRecipient console = new MessageRecipient(getServer().getConsoleSender());
     private final SDCOnlinePlayerProvider onlinePlayerProvider = new OnlinePlayerProvider(this);
+    private final SDCReloadManager reloadManager = new ReloadManager();
 
     public SlimeDogCore(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
     }
 
     public SlimeDogCore() {
+        registerDefaultReloadables();
+    }
+
+    private void registerDefaultReloadables() {
+        reloadManager.register(getDefaultConfig());
     }
 
     @Override
@@ -114,6 +122,11 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     @Override
     public SDCOnlinePlayerProvider getOnlinePlayerProvider() {
         return onlinePlayerProvider;
+    }
+
+    @Override
+    public SDCReloadManager getReloadManager() {
+        return reloadManager;
     }
 
 }

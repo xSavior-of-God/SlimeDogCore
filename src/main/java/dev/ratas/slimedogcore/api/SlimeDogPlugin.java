@@ -7,6 +7,7 @@ import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
+import dev.ratas.slimedogcore.api.reload.SDCReloadManager;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
@@ -125,5 +126,12 @@ public interface SlimeDogPlugin {
      * @return the online player provider
      */
     SDCOnlinePlayerProvider getOnlinePlayerProvider();
+
+    /**
+     * Gets the reload manager.
+     *
+     * @return the reload manager
+     */
+    SDCReloadManager getReloadManager();
 
 }

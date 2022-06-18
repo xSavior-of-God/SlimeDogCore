@@ -1,14 +1,17 @@
 # SlimeDogCore
 Core functionality for SlimeDog resources
 
-You are welcome to use it under the terms of the GPL3 license.
+⚠️ SlimeDogCore is a work-in-progress.
+You are welcome to use it under the terms of the GPL3 license,
+with the understanding that changes may be made as it is incorporated into other SlimeDog projects.
 
 Please give credit where due.
 
-[Javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/)
+📜 [Javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/)
 
 ## Resources known to incorporate SlimeDogCore
-[AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/)
+[AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
+[pHD](https://github.com/SlimeDog/pHD/)
 
 ## How to incorporate SlimeDogCore in your plugin
 Add to `pom.xml` sections

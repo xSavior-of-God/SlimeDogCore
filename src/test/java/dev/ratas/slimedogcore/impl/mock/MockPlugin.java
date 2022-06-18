@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
@@ -14,6 +15,7 @@ import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
 import dev.ratas.slimedogcore.impl.config.BaseSettings;
 import dev.ratas.slimedogcore.impl.config.ConfigManager;
+import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
 import dev.ratas.slimedogcore.impl.utils.logging.DebugLogger;
 
 public class MockPlugin implements SlimeDogPlugin {
@@ -27,6 +29,7 @@ public class MockPlugin implements SlimeDogPlugin {
     public final MockResourceProvider resourceProvider = new MockResourceProvider();
     public final DebugLogger debugLogger = new DebugLogger(LOGGER, () -> true);
     public final BaseSettings baseSettings = new BaseSettings(() -> getDefaultConfig());
+    private final SDCRecipient console = new MessageRecipient(new MockSender(LOGGER));
 
     public MockPlugin() {
         this(new File("."));
@@ -101,6 +104,11 @@ public class MockPlugin implements SlimeDogPlugin {
     @Override
     public SDCBaseSettings getBaseSettings() {
         return baseSettings;
+    }
+
+    @Override
+    public SDCRecipient getConsoleRecipient() {
+        return console;
     }
 
 }

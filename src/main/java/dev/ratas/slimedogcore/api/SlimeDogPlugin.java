@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
 import dev.ratas.slimedogcore.api.config.settings.SDCBaseSettings;
+import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
@@ -109,5 +110,12 @@ public interface SlimeDogPlugin {
     }
 
     SDCBaseSettings getBaseSettings();
+
+    /**
+     * Gets the console recipient.
+     *
+     * @return the console recipient
+     */
+    SDCRecipient getConsoleRecipient();
 
 }

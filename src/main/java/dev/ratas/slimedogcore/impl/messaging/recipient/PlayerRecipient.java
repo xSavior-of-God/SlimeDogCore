@@ -1,5 +1,7 @@
 package dev.ratas.slimedogcore.impl.messaging.recipient;
 
+import java.util.UUID;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -29,6 +31,11 @@ public class PlayerRecipient extends MessageRecipient implements SDCPlayerRecipi
     @Override
     public String getName() {
         return delegate.getName();
+    }
+
+    @Override
+    public UUID getId() {
+        return ((Player) delegate).getUniqueId();
     }
 
 }

@@ -13,6 +13,11 @@ public class PlayerRecipient extends MessageRecipient implements SDCPlayerRecipi
 
     @Override
     public Location getLoaction() {
+        return getLocation();
+    }
+
+    @Override
+    public Location getLocation() {
         return ((Player) delegate).getLocation();
     }
 

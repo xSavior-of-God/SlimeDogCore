@@ -10,6 +10,7 @@ import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.api.scheduler.SDCScheduler;
 import dev.ratas.slimedogcore.api.utils.logger.SDCDebugLogger;
 import dev.ratas.slimedogcore.api.wrappers.SDCResourceProvider;
+import dev.ratas.slimedogcore.api.wrappers.SDCOnlinePlayerProvider;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginInformation;
 import dev.ratas.slimedogcore.api.wrappers.SDCPluginManager;
 import dev.ratas.slimedogcore.api.wrappers.SDCWorldProvider;
@@ -117,5 +118,12 @@ public interface SlimeDogPlugin {
      * @return the console recipient
      */
     SDCRecipient getConsoleRecipient();
+
+    /**
+     * Gets the online player provider.
+     *
+     * @return the online player provider
+     */
+    SDCOnlinePlayerProvider getOnlinePlayerProvider();
 
 }

@@ -28,4 +28,9 @@ public class PluginInformation implements SDCPluginInformation {
         return craftBukkitPackage;
     }
 
+    @Override
+    public String getPluginName() {
+        return plugin.getName();
+    }
+
 }

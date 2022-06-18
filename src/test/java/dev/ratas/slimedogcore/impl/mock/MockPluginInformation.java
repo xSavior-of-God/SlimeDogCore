@@ -6,6 +6,7 @@ public class MockPluginInformation implements SDCPluginInformation {
     private static final String PLUGIN_VERSION = "PL.TEST_TIME";
     private static final String MC_VERSION = "MC.TEST_TIME";
     private static final String CB_PACKAGE_NAME = "V_TEST_R";
+    private static final String PLUGIN_NAME = "TestSDCPlugin";
 
     @Override
     public String getPluginVersion() {
@@ -20,6 +21,11 @@ public class MockPluginInformation implements SDCPluginInformation {
     @Override
     public String getCraftBukkitPackage() {
         return CB_PACKAGE_NAME;
+    }
+
+    @Override
+    public String getPluginName() {
+        return PLUGIN_NAME;
     }
 
 }

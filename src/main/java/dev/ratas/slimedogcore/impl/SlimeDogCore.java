@@ -2,7 +2,9 @@ package dev.ratas.slimedogcore.impl;
 
 import java.io.File;
 
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
 import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.api.config.SDCCustomConfigManager;
@@ -26,28 +28,21 @@ import dev.ratas.slimedogcore.impl.wrappers.WorldProvider;
 public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
     private static final long BLOCK_IDENTICAL_DEBUG_MSG_MS = 10 * 1000L;
     private static final long CLEAR_DEBUG_LOGGER_CACHE_MS = 10 * 60 * 1000L; // every 10 minutes
-    private final ConfigManager configManager;
-    private final ResourceProvider resourceProvider;
-    private final PluginManager pluginManager;
-    private final WorldProvider worldProvider;
-    private final Scheduler scheduler;
-    private final PluginInformation pluginInformation;
-    private final DebugLogger debugLogger;
-    private final BaseSettings baseSettings;
+    private final ConfigManager configManager = new ConfigManager(this);
+    private final ResourceProvider resourceProvider = new ResourceProvider(this);
+    private final PluginManager pluginManager = new PluginManager(this);
+    private final WorldProvider worldProvider = new WorldProvider(this);
+    private final Scheduler scheduler = new Scheduler(this);
+    private final PluginInformation pluginInformation = new PluginInformation(this);
+    private final DebugLogger debugLogger = new DebugLogger(getLogger(), () -> getBaseSettings().isDebugModeEnabled(),
+            new DisallowWithinTimeStrategy(BLOCK_IDENTICAL_DEBUG_MSG_MS, CLEAR_DEBUG_LOGGER_CACHE_MS));
+    private final BaseSettings baseSettings = new BaseSettings(() -> getDefaultConfig());
+
+    public SlimeDogCore(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
 
     public SlimeDogCore() {
-        // These are all simple wrappers that do not use any bukkit code during
-        // initialization.
-        // As such, it is safe to initialize them at plugin instance initialization
-        debugLogger = new DebugLogger(getLogger(), () -> getBaseSettings().isDebugModeEnabled(),
-                new DisallowWithinTimeStrategy(BLOCK_IDENTICAL_DEBUG_MSG_MS, CLEAR_DEBUG_LOGGER_CACHE_MS));
-        configManager = new ConfigManager(this);
-        resourceProvider = new ResourceProvider(this);
-        pluginManager = new PluginManager(this);
-        worldProvider = new WorldProvider(this);
-        scheduler = new Scheduler(this);
-        pluginInformation = new PluginInformation(this);
-        baseSettings = new BaseSettings(() -> getDefaultConfig());
     }
 
     @Override

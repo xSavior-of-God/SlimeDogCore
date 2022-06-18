@@ -37,12 +37,45 @@ public class ReloadManagerTest {
         Assertions.assertEquals(1, reloadable.count, "Count should be going up");
     }
 
+    @Test
+    public void test_registeringTwiceFails() {
+        CountingReloadable reloadable = new CountingReloadable();
+        reloadManager.register(reloadable);
+        Assertions.assertThrows(IllegalStateException.class, () -> reloadManager.register(reloadable));
+    }
+
+    @Test
+    public void test_registeringOrderMaintained() {
+        CountingReloadable reloadable1 = new CountingReloadable();
+        DelegatingCountingReloadable reloadable2 = new DelegatingCountingReloadable(
+                () -> Assertions.assertEquals(1, reloadable1.count, "First one should be called first"));
+        reloadManager.register(reloadable1);
+        reloadManager.register(reloadable2);
+        reloadManager.reload();
+        Assertions.assertEquals(1, reloadable2.count, "Reloudable 2 should have been called");
+    }
+
     public static class CountingReloadable implements SDCReloadable {
         public int count = 0;
 
         @Override
         public void reload() throws ReloadException {
             count++;
+        }
+
+    }
+
+    public static class DelegatingCountingReloadable extends CountingReloadable {
+        public final Runnable run;
+
+        public DelegatingCountingReloadable(Runnable run) {
+            this.run = run;
+        }
+
+        @Override
+        public void reload() throws ReloadException {
+            super.reload();
+            run.run();
         }
 
     }

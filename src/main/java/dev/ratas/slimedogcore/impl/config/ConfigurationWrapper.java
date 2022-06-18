@@ -170,4 +170,9 @@ public class ConfigurationWrapper implements SDCConfiguration {
         return new ConfigurationWrapper(defSect);
     }
 
+    @Override
+    public boolean isConfigurationSection(String path) {
+        return delegate.isConfigurationSection(path);
+    }
+
 }

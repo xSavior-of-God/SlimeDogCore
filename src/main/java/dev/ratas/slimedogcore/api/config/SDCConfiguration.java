@@ -248,6 +248,14 @@ public interface SDCConfiguration {
     SDCConfiguration getConfigurationSection(String path);
 
     /**
+     * Checks whether a path refers to a configuration section.
+     *
+     * @param path the path
+     * @return true if the path refers to a section, false otherwise
+     */
+    boolean isConfigurationSection(String path);
+
+    /**
      * Gets the default section defined (if it exists) or null.
      *
      * @return the default section if defined, else null

@@ -11,7 +11,7 @@ Please give credit where due.
 
 ## Resources known to incorporate SlimeDogCore
 [AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
-[BiomeRemap](https://github.com/SlimeDog/BiomeRemap/)
+[BiomeRemap](https://github.com/SlimeDog/BiomeRemap/) <br>
 [pHD](https://github.com/SlimeDog/pHD/)
 
 ## How to incorporate SlimeDogCore in your plugin

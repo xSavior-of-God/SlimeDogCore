@@ -31,6 +31,14 @@ public interface SDCPluginManager {
      */
     JavaPlugin getPluginByName(String name);
 
+    default boolean isPluginEnabled(String name) {
+        JavaPlugin plugin = getPluginByName(name);
+        if (plugin == null) {
+            return false;
+        }
+        return plugin.isEnabled();
+    }
+
     /**
      * Attempts to get a plugin by its class.
      *

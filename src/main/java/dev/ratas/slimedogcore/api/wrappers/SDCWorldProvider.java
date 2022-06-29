@@ -1,5 +1,6 @@
 package dev.ratas.slimedogcore.api.wrappers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,5 +33,18 @@ public interface SDCWorldProvider {
      * @return the list of all worlds
      */
     List<World> getAllWorlds();
+
+    /**
+     * Gets all world names within the server.
+     *
+     * @return the names of all the worlds
+     */
+    default List<String> getAllWorldNames() {
+        List<String> names = new ArrayList<>();
+        for (World world : getAllWorlds()) {
+            names.add(world.getName());
+        }
+        return names;
+    }
 
 }

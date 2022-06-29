@@ -31,6 +31,15 @@ public interface SDCPluginManager {
      */
     JavaPlugin getPluginByName(String name);
 
+    /**
+     * Checks if a plugin by a specific name is enabled.
+     *
+     * If a plugin by the name does not exist, it is reported as disabled.
+     * If a plugin by the name does exist, the plugin's appropriate method is used.
+     *
+     * @param name the name of the plugin
+     * @return whether the plugin is enabled or not
+     */
     default boolean isPluginEnabled(String name) {
         JavaPlugin plugin = getPluginByName(name);
         if (plugin == null) {

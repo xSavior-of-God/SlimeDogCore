@@ -73,7 +73,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     protected List<String> getApplicableSubCommandNames(SDCRecipient sender) {
         List<String> names = new ArrayList<>();
         for (SDCSubCommand subCommand : subCommands.values()) {
-            if (subCommand.hasPermission(sender)) {
+            if (subCommand.hasPermission(sender) && subCommand.showOnTabComplete()) {
                 names.add(subCommand.getName());
             }
         }

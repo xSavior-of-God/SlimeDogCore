@@ -7,11 +7,17 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
     private final String name;
     private final String perms;
     private final String usage;
+    private final boolean showOnTabComplete;
 
     protected AbstractSubCommand(String name, String perms, String usage) {
+        this(name, perms, usage, true);
+    }
+
+    protected AbstractSubCommand(String name, String perms, String usage, boolean showOnTabComplete) {
         this.name = name;
         this.perms = perms;
         this.usage = usage;
+        this.showOnTabComplete = showOnTabComplete;
     }
 
     @Override
@@ -27,6 +33,11 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean showOnTabComplete() {
+        return showOnTabComplete;
     }
 
 }

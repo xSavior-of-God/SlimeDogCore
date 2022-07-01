@@ -132,7 +132,7 @@ public class SubCommandTest {
         String usage = "/not usage";
         boolean playerOnly = false;
         boolean show = true;
-        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Settings.Builder().withName(name)
+        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Options.Builder().withName(name)
                 .withPerms(perms).withUsage(usage).isPlayerOnly(playerOnly).showOnTabComplete(show).build(), null,
                 null);
         MockSubCommand sub2 = new MockSubCommand(name, perms, usage, null, null);
@@ -149,7 +149,7 @@ public class SubCommandTest {
         String usage = "/not usage";
         boolean playerOnly = false;
         boolean show = true;
-        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Settings.Builder().withName(name)
+        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Options.Builder().withName(name)
                 .withPerms(perms).withUsage(usage).isPlayerOnly(playerOnly).showOnTabComplete(show).build(), null,
                 null);
         Assertions.assertEquals(sub1.getName(), name);

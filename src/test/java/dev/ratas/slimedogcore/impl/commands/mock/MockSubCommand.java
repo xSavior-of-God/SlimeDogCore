@@ -12,10 +12,10 @@ public class MockSubCommand extends AbstractSubCommand {
 
     public MockSubCommand(String name, String perms, String usage, Consumer<String[]> onTabComplete,
             Consumer<String[]> onCommand) {
-        this(new Settings.Builder().withName(name).withPerms(perms).withUsage(usage).build(), onTabComplete, onCommand);
+        this(new Options.Builder().withName(name).withPerms(perms).withUsage(usage).build(), onTabComplete, onCommand);
     }
 
-    public MockSubCommand(Settings settings, Consumer<String[]> onTabComplete, Consumer<String[]> onCommand) {
+    public MockSubCommand(Options settings, Consumer<String[]> onTabComplete, Consumer<String[]> onCommand) {
         super(settings);
         this.onTabComplete = onTabComplete;
         this.onCommand = onCommand;

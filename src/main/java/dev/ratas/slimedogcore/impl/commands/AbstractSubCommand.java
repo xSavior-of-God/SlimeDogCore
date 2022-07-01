@@ -20,7 +20,7 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
         this(name, perms, usage, showOnTabComplete, false);
     }
 
-    protected AbstractSubCommand(Settings settings) {
+    protected AbstractSubCommand(Options settings) {
         this(settings.name, settings.perms, settings.usage, settings.showOnTabComplete, settings.isPlayerOnly);
     }
 
@@ -58,14 +58,14 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
         return isPlayerOnly;
     }
 
-    public static final class Settings {
+    public static final class Options {
         private final String name;
         private final String usage;
         private final String perms;
         private final boolean showOnTabComplete;
         private final boolean isPlayerOnly;
 
-        private Settings(String name, String perms, String usage, boolean showOnTabComplete, boolean isPlayerOnly) {
+        private Options(String name, String perms, String usage, boolean showOnTabComplete, boolean isPlayerOnly) {
             Validate.notNull(name, "Name cannot be null");
             Validate.notNull(perms, "Perms cannot be null");
             Validate.notNull(usage, "Usage cannot be null");
@@ -108,8 +108,8 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
                 return this;
             }
 
-            public Settings build() {
-                return new Settings(name, usage, perms, showOnTabComplete, isPlayerOnly);
+            public Options build() {
+                return new Options(name, usage, perms, showOnTabComplete, isPlayerOnly);
             }
 
         }

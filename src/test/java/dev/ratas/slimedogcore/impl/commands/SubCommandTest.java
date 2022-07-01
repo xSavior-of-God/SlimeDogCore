@@ -125,4 +125,36 @@ public class SubCommandTest {
         Assertions.assertEquals(1, times.get(), "The usage should sent exactly once");
     }
 
+    @Test
+    public void test_SettingsConstructorIdentical() {
+        String name = "some-name";
+        String perms = "some.perms.as-well";
+        String usage = "/not usage";
+        boolean playerOnly = false;
+        boolean show = true;
+        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Settings.Builder().withName(name)
+                .withPerms(perms).withUsage(usage).isPlayerOnly(playerOnly).showOnTabComplete(show).build(), null,
+                null);
+        MockSubCommand sub2 = new MockSubCommand(name, perms, usage, null, null);
+        Assertions.assertEquals(sub1.getName(), sub2.getName());
+        Assertions.assertEquals(sub1.isPlayerOnly(), sub2.isPlayerOnly());
+        Assertions.assertEquals(playerOnly, sub2.isPlayerOnly());
+        Assertions.assertEquals(sub1.showOnTabComplete(), sub2.showOnTabComplete());
+    }
+
+    @Test
+    public void test_SettingsConstructor_correct() {
+        String name = "some-name";
+        String perms = "some.perms.as-well";
+        String usage = "/not usage";
+        boolean playerOnly = false;
+        boolean show = true;
+        MockSubCommand sub1 = new MockSubCommand(new AbstractSubCommand.Settings.Builder().withName(name)
+                .withPerms(perms).withUsage(usage).isPlayerOnly(playerOnly).showOnTabComplete(show).build(), null,
+                null);
+        Assertions.assertEquals(sub1.getName(), name);
+        Assertions.assertEquals(sub1.showOnTabComplete(), sub1.showOnTabComplete());
+        Assertions.assertEquals(show, sub1.showOnTabComplete());
+    }
+
 }

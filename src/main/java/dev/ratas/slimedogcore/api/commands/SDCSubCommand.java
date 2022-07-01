@@ -36,4 +36,11 @@ public interface SDCSubCommand extends SDCCommandPart {
      */
     boolean showOnTabComplete();
 
+    /**
+     * Check whether this command can only be used by players (and not in console).
+     *
+     * @return whether this sub-command is player only
+     */
+    boolean isPlayerOnly();
+
 }

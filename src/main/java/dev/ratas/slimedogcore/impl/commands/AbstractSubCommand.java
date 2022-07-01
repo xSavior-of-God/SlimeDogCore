@@ -8,16 +8,23 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
     private final String perms;
     private final String usage;
     private final boolean showOnTabComplete;
+    private final boolean isPlayerOnly;
 
     protected AbstractSubCommand(String name, String perms, String usage) {
         this(name, perms, usage, true);
     }
 
     protected AbstractSubCommand(String name, String perms, String usage, boolean showOnTabComplete) {
+        this(name, perms, usage, showOnTabComplete, false);
+    }
+
+    protected AbstractSubCommand(String name, String perms, String usage, boolean showOnTabComplete,
+            boolean isPlayerOnly) {
         this.name = name;
         this.perms = perms;
         this.usage = usage;
         this.showOnTabComplete = showOnTabComplete;
+        this.isPlayerOnly = isPlayerOnly;
     }
 
     @Override
@@ -38,6 +45,11 @@ public abstract class AbstractSubCommand implements SDCSubCommand {
     @Override
     public boolean showOnTabComplete() {
         return showOnTabComplete;
+    }
+
+    @Override
+    public boolean isPlayerOnly() {
+        return isPlayerOnly;
     }
 
 }

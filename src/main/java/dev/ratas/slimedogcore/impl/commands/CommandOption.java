@@ -2,6 +2,7 @@ package dev.ratas.slimedogcore.impl.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
 
@@ -49,6 +50,11 @@ public class CommandOption implements SDCCommandOption {
         }
         CommandOption o = (CommandOption) other;
         return o.name.equals(name) && (hasValue() ? value.equals(o.value) : !o.hasValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, value);
     }
 
     @Override

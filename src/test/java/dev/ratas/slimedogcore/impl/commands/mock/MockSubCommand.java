@@ -3,6 +3,7 @@ package dev.ratas.slimedogcore.impl.commands.mock;
 import java.util.List;
 import java.util.function.Consumer;
 
+import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
 import dev.ratas.slimedogcore.impl.commands.AbstractSubCommand;
 
@@ -28,7 +29,7 @@ public class MockSubCommand extends AbstractSubCommand {
     }
 
     @Override
-    public boolean onCommand(SDCRecipient sender, String[] args, List<String> opts) {
+    public boolean onOptionedCommand(SDCRecipient sender, String[] args, List<SDCCommandOption> opts) {
         onCommand.accept(args);
         return false;
     }

@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.bukkit.util.StringUtil;
 
+import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
 import dev.ratas.slimedogcore.api.commands.SDCParentCommand;
 import dev.ratas.slimedogcore.api.commands.SDCSubCommand;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
@@ -40,7 +41,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     }
 
     @Override
-    public boolean onCommand(SDCRecipient sender, String[] args, List<String> opts) {
+    public boolean onOptionedCommand(SDCRecipient sender, String[] args, List<SDCCommandOption> opts) {
         if (args.length == 0) {
             sender.sendRawMessage(getUsage(sender));
             return true;
@@ -49,7 +50,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
         if (subCommand == null || !subCommand.hasPermission(sender)) {
             return false;
         }
-        if (!subCommand.onCommand(sender, removeFirstArg(args), opts)) {
+        if (!subCommand.onOptionedCommand(sender, removeFirstArg(args), opts)) {
             sender.sendRawMessage(subCommand.getUsage(sender, args));
         }
         return true;

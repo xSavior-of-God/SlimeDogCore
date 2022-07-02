@@ -13,7 +13,9 @@ Please give credit where due.
 [AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
 [BiomeRemap](https://github.com/SlimeDog/BiomeRemap/) <br>
 [MobColors](https://github.com/SlimeDog/MobColors/) <br>
-[pHD](https://github.com/SlimeDog/pHD/)
+[pHD](https://github.com/SlimeDog/pHD/) <br>
+
+Let us know if you would like your project included in this list.
 
 ## How to incorporate SlimeDogCore in your plugin
 Add to `pom.xml` sections
@@ -29,7 +31,7 @@ Add to `pom.xml` sections
         <dependency>
             <groupId>com.github.SlimeDog</groupId>
             <artifactId>SlimeDogCore</artifactId>
-            <version>0.1.1-SNAPSHOT</version>
+            <version>0.1.9-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

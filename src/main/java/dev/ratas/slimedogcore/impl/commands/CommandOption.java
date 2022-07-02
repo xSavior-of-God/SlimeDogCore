@@ -1,10 +1,10 @@
 package dev.ratas.slimedogcore.impl.commands;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
+import dev.ratas.slimedogcore.api.commands.SDCCommandOptionSet;
 
 public class CommandOption implements SDCCommandOption {
     private final String name;
@@ -62,10 +62,10 @@ public class CommandOption implements SDCCommandOption {
         return String.format("{CmdOpt[%s=%s]}", raw, hasValue() ? value : "N/A");
     }
 
-    public static List<SDCCommandOption> convertFromString(List<String> rawOptions) {
-        List<SDCCommandOption> options = new ArrayList<>();
+    public static SDCCommandOptionSet convertFromString(List<String> rawOptions) {
+        SDCCommandOptionSet options = new CommandOptionSet();
         for (String raw : rawOptions) {
-            options.add(new CommandOption(raw, null));
+            options.addOption(raw, null);
         }
         return options;
     }

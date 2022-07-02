@@ -66,7 +66,7 @@ public class SubCommandTest {
     @Test // test that no call when inforrect first argument
     public void test_SubCommand_noCall_onOptionedCommand() {
         curArgs[0] = "SOMETHING ELSE";
-        parent.onOptionedCommand(recipient, curArgs, Collections.emptyList());
+        parent.onOptionedCommand(recipient, curArgs, new CommandOptionSet());
         Assertions.assertEquals(0, times.get(), "The sub-command onTabComplete should not be called");
     }
 
@@ -78,20 +78,20 @@ public class SubCommandTest {
 
     @Test
     public void test_SubCommand_getsCalled_OnCommand() {
-        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), new CommandOptionSet());
         Assertions.assertEquals(times.get(), 1, "The sub-command onTabComplete should be called once");
     }
 
     @Test
     public void test_SuCommand_foundWithUppercase() {
         curArgs[0] = SUB_NAME.toUpperCase();
-        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), new CommandOptionSet());
     }
 
     @Test
     public void test_SubCommand_foundWithLowercase() {
         curArgs[0] = SUB_NAME.toLowerCase();
-        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), Collections.emptyList());
+        parent.onOptionedCommand(recipient, ALL_ARGS.toArray(new String[0]), new CommandOptionSet());
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SubCommandTest {
             times.incrementAndGet();
             Assertions.assertEquals(usage, msg);
         };
-        parent.onOptionedCommand(recipient, new String[] {}, Collections.emptyList());
+        parent.onOptionedCommand(recipient, new String[] {}, new CommandOptionSet());
         Assertions.assertEquals(1, times.get(), "The usage should sent exactly once");
     }
 
@@ -116,7 +116,7 @@ public class SubCommandTest {
             times.incrementAndGet();
             Assertions.assertEquals(usage, msg);
         };
-        parent.onOptionedCommand(recipient, new String[] {}, Collections.emptyList());
+        parent.onOptionedCommand(recipient, new String[] {}, new CommandOptionSet());
         Assertions.assertEquals(2, usage.split("\n").length, "Should have the usage for both sub-commands");
         Assertions.assertTrue(usage.contains(sub.getUsage(recipient, new String[] {})),
                 "Should contain usage for first sub-command");

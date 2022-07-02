@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.bukkit.util.StringUtil;
 
-import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
+import dev.ratas.slimedogcore.api.commands.SDCCommandOptionSet;
 import dev.ratas.slimedogcore.api.commands.SDCParentCommand;
 import dev.ratas.slimedogcore.api.commands.SDCSubCommand;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
@@ -41,7 +41,7 @@ public abstract class AbstractParentCommand implements SDCParentCommand {
     }
 
     @Override
-    public boolean onOptionedCommand(SDCRecipient sender, String[] args, List<SDCCommandOption> opts) {
+    public boolean onOptionedCommand(SDCRecipient sender, String[] args, SDCCommandOptionSet opts) {
         if (args.length == 0) {
             sender.sendRawMessage(getUsage(sender));
             return true;

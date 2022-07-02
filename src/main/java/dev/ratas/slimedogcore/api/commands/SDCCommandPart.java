@@ -14,6 +14,6 @@ public interface SDCCommandPart {
         return onOptionedCommand(sender, args, CommandOption.convertFromString(opts));
     }
 
-    boolean onOptionedCommand(SDCRecipient sender, String[] args, List<SDCCommandOption> opts);
+    boolean onOptionedCommand(SDCRecipient sender, String[] args, SDCCommandOptionSet opts);
 
 }

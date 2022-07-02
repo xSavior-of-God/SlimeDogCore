@@ -7,7 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
-import dev.ratas.slimedogcore.api.commands.SDCCommandOption;
+import dev.ratas.slimedogcore.api.commands.SDCCommandOptionSet;
 import dev.ratas.slimedogcore.impl.wrappers.BukkitAdapter;
 
 public abstract class BukkitFacingParentCommand extends AbstractParentCommand implements TabExecutor {
@@ -25,9 +25,9 @@ public abstract class BukkitFacingParentCommand extends AbstractParentCommand im
 
     public static class OptionParser {
         private final String[] args;
-        private final List<SDCCommandOption> opts;
+        private final SDCCommandOptionSet opts;
 
-        public OptionParser(String[] args, List<SDCCommandOption> opts) {
+        public OptionParser(String[] args, SDCCommandOptionSet opts) {
             this.args = args;
             this.opts = opts;
         }
@@ -36,23 +36,23 @@ public abstract class BukkitFacingParentCommand extends AbstractParentCommand im
             return args;
         }
 
-        public List<SDCCommandOption> getOpts() {
+        public SDCCommandOptionSet getOpts() {
             return opts;
         }
 
         public static OptionParser parseArgs(String[] args) {
             List<String> argList = new ArrayList<>();
-            List<SDCCommandOption> opts = new ArrayList<>();
+            SDCCommandOptionSet opts = new CommandOptionSet();
             String curOpt = null;
             for (String arg : args) {
                 if (arg.startsWith("--")) { // option
                     if (curOpt != null) { // end previous
-                        opts.add(new CommandOption(curOpt, null));
+                        opts.addOption(curOpt, null);
                     }
                     curOpt = arg;
                 } else {
                     if (curOpt != null) { // value for previous option
-                        opts.add(new CommandOption(curOpt, arg));
+                        opts.addOption(curOpt, arg);
                         curOpt = null;
                     } else { // regular argument
                         argList.add(arg);
@@ -60,7 +60,7 @@ public abstract class BukkitFacingParentCommand extends AbstractParentCommand im
                 }
             }
             if (curOpt != null) {
-                opts.add(new CommandOption(curOpt, null));
+                opts.addOption(curOpt, null);
             }
             return new OptionParser(argList.toArray(new String[argList.size()]), opts);
         }

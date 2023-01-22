@@ -39,4 +39,14 @@ public class CommandOptionSet extends HashMap<String, SDCCommandOption> implemen
         return converter.apply(opt.getValue());
     }
 
+    @Override
+    public void removeOptionWithName(String name) throws IllegalArgumentException {
+        remove(name);
+    }
+
+    @Override
+    public void removeOptionWithRawName(String name) throws IllegalArgumentException {
+        removeOptionWithName(name.replace("-", ""));
+    }
+
 }

@@ -40,6 +40,22 @@ public interface SDCCommandOptionSet {
     Collection<SDCCommandOption> getOptions();
 
     /**
+     * Remove the option with the specified name.
+     *
+     * @param name the name of the option
+     * @throws IllegalArgumentException if the name isn't present
+     */
+    void removeOptionWithName(String name) throws IllegalArgumentException;
+
+    /**
+     * Remove the option with the specified raw name.
+     *
+     * @param name the raw name of the option
+     * @throws IllegalArgumentException if the name isn't present
+     */
+    void removeOptionWithRawName(String name) throws IllegalArgumentException;
+
+    /**
      * Get the value attached to a specific option in an arbitrary type or a
      * specified default.
      *

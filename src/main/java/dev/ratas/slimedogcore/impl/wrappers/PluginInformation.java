@@ -12,7 +12,13 @@ public class PluginInformation implements SDCPluginInformation {
 
     public PluginInformation(SlimeDogCore plugin) {
         this.plugin = plugin;
-        this.craftBukkitPackage = plugin.getServer().getClass().getPackage().getName().split("\\.")[VERSION_PACKAGE_NR];
+        String cbVersion;
+        try {
+            cbVersion = plugin.getServer().getClass().getPackage().getName().split("\\.")[VERSION_PACKAGE_NR];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            cbVersion = "UNAVAILABLE (test time?)"; // Unavailable during test time
+        }
+        this.craftBukkitPackage = cbVersion;
     }
 
     @Override

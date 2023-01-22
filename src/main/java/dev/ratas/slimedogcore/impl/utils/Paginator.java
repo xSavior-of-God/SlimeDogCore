@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 public class Paginator<T> implements Iterable<T> {
     private final List<T> list;

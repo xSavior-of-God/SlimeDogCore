@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.impl.messaging.context.delegating;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 import dev.ratas.slimedogcore.api.messaging.context.SDCSingleContext;
 

@@ -1,6 +1,6 @@
 package dev.ratas.slimedogcore.impl.commands;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 import dev.ratas.slimedogcore.api.commands.SDCSubCommand;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;

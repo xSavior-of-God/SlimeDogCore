@@ -10,10 +10,10 @@ Please give credit where due.
 📜 [Javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/)
 
 ## Resources known to incorporate SlimeDogCore
-[AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
-[BiomeRemap](https://github.com/SlimeDog/BiomeRemap/) <br>
-[MobColors](https://github.com/SlimeDog/MobColors/) <br>
-[pHD](https://github.com/SlimeDog/pHD/) <br>
+[SlimeDog/AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
+[SlimeDog/BiomeRemap](https://github.com/SlimeDog/BiomeRemap/) <br>
+[SlimeDog/MobColors](https://github.com/SlimeDog/MobColors/) <br>
+[SlimeDog/pHD](https://github.com/SlimeDog/pHD/) <br>
 
 Let us know if you would like your project included in this list.
 

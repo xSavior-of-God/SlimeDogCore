@@ -1,5 +1,5 @@
 # SlimeDogCore
-Core functionality for SlimeDog resources
+Core functionality for high-quality Minecraft resources produced by [SlimeDog](https://github.com/SlimeDog) and engineered by (mostly) [mart-r](https://github.com/mart-r)
 
 ⚠️ SlimeDogCore is a work-in-progress.
 You are welcome to use it under the terms of the GPL3 license,

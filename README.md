@@ -13,6 +13,7 @@ Please give credit where due.
 [SlimeDog/AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>
 [SlimeDog/BiomeRemap](https://github.com/SlimeDog/BiomeRemap/) <br>
 [SlimeDog/MobColors](https://github.com/SlimeDog/MobColors/) <br>
+[SlimeDog/NetworkInterceptor](https://github.com/SlimeDog/NetworkInterceptor/) <br>
 [SlimeDog/pHD](https://github.com/SlimeDog/pHD/) <br>
 
 Let us know if you would like your project included in this list.

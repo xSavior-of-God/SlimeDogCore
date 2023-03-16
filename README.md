@@ -15,6 +15,7 @@ Please give credit where due.
 [SlimeDog/MobColors](https://github.com/SlimeDog/MobColors/) <br>
 [SlimeDog/NetworkInterceptor](https://github.com/SlimeDog/NetworkInterceptor/) <br>
 [SlimeDog/pHD](https://github.com/SlimeDog/pHD/) <br>
+[SlimeDog/PluginVersions](https://github.com/SlimeDog/PluginVersions/) <br>
 
 Let us know if you would like your project included in this list.
 

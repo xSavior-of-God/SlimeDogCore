@@ -1,13 +1,13 @@
 # SlimeDogCore
-Core functionality for high-quality Minecraft resources produced by [SlimeDog](https://github.com/SlimeDog) and engineered by (mostly) [mart-r](https://github.com/mart-r)
+Core functionality for high-quality Minecraft resources produced by [SlimeDog](https://github.com/SlimeDog) and engineered by (mostly) [mart-r](https://github.com/mart-r).
 
 ⚠️ SlimeDogCore is a work-in-progress.
 You are welcome to use it under the terms of the GPL3 license,
-with the understanding that changes may be made as it is incorporated into other SlimeDog projects.
+with the understanding that changes may be made in future, as we incorporate more common functionality.
 
-Please give credit where due.
+📜 See the [javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/) for the latest documentation.
 
-📜 [Javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/)
+♥️ Please give credit where due.
 
 ## Resources known to incorporate SlimeDogCore
 [SlimeDog/AggressiveAnimals](https://github.com/SlimeDog/AggressiveAnimals/) <br>

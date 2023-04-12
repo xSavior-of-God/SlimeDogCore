@@ -39,6 +39,24 @@
 			<version>3.12.0</version>
 			<scope>provided</scope>
 		</dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-api</artifactId>
+      <version>4.13.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-text-minimessage</artifactId>
+      <version>4.13.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-platform-bukkit</artifactId>
+      <version>4.3.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -97,6 +115,34 @@
                         </goals>
                 </execution>
         </executions>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.4.1</version>
+          <configuration>
+              <relocations>
+                  <relocation>
+                      <pattern>net.kyori</pattern>
+                      <shadedPattern>dev.ratas.slimedogcore.shade.kyori</shadedPattern>
+                  </relocation>
+              </relocations>
+          </configuration>
+          <executions>
+              <execution>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>shade</goal>
+                  </goals>
+                  <configuration>
+                      <createDependencyReducedPom>false</createDependencyReducedPom>
+                      <minimizeJar>true</minimizeJar>
+                      <transformers>
+                          <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"></transformer>
+                      </transformers>
+                  </configuration>
+              </execution>
+          </executions>
       </plugin>
     </plugins>
   </build>

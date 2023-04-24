@@ -16,6 +16,10 @@ public class MessageFactory<T extends SDCContext> extends AbstractMessageFactory
         this.msgTarget = msgTarget;
     }
 
+    public String getRawMessage() {
+        return raw;
+    }
+
     @Override
     public SDCMessage<T> getMessage(T context) {
         return new ContextMessage<>(raw, context, msgTarget);

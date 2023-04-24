@@ -5,8 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class MiniMessageUtil {
-    private static final Pattern LEFT_ANGLE_BRACKET = Pattern.compile("(?<=\\)b<");
-    private static final Pattern RIGHT_ANGLE_BRACKET = Pattern.compile("(?<=\\)b>");
+    private static final Pattern LEFT_ANGLE_BRACKET = Pattern.compile("(?<!\\\\)\\<");
+    private static final Pattern RIGHT_ANGLE_BRACKET = Pattern.compile("(?<!\\\\)\\>");
 
     private MiniMessageUtil() {
         // prviate constructor

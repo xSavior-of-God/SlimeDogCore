@@ -10,16 +10,24 @@ import com.google.gson.stream.JsonToken;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import dev.ratas.slimedogcore.api.messaging.SDCMessage;
 import dev.ratas.slimedogcore.api.messaging.context.SDCContext;
 import dev.ratas.slimedogcore.api.messaging.recipient.SDCRecipient;
+import dev.ratas.slimedogcore.impl.SlimeDogCore;
+import dev.ratas.slimedogcore.impl.messaging.mini.MiniMessageUtil;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 
 public class MessageRecipient implements SDCRecipient {
+    private static final LazyAudiences AUDIENCES = new LazyAudiences();
     protected final CommandSender delegate;
 
     public MessageRecipient(CommandSender delegate) {
@@ -37,6 +45,10 @@ public class MessageRecipient implements SDCRecipient {
     }
 
     protected void sendTo(ChatMessageType target, String msg, boolean parseJson) {
+        if (MiniMessageUtil.textCouldBeMiniMessage(msg)) {
+            sendMiniMessage(target, msg);
+            return;
+        }
         BaseComponent[] comps;
         if (!parseJson) {
             comps = TextComponent.fromLegacyText(msg);
@@ -47,6 +59,19 @@ public class MessageRecipient implements SDCRecipient {
             ((Player) delegate).spigot().sendMessage(target, comps);
         } else {
             delegate.spigot().sendMessage(comps);
+        }
+    }
+
+    protected void sendMiniMessage(ChatMessageType target, String msg) {
+        MiniMessage mm = MiniMessage.miniMessage();
+        Component comp = mm.deserialize(msg);
+        Audience audience = AUDIENCES.get().sender(delegate);
+        if (target == ChatMessageType.CHAT) {
+            audience.sendMessage(comp);
+        } else if (target == ChatMessageType.ACTION_BAR) {
+            audience.sendActionBar(comp);
+        } else {
+            throw new IllegalStateException("Unimplemented message target: " + target);
         }
     }
 
@@ -113,6 +138,23 @@ public class MessageRecipient implements SDCRecipient {
     @Override
     public boolean isPlayer() {
         return false;
+    }
+
+    private static final class LazyAudiences {
+        private BukkitAudiences audiences = null;
+
+        private BukkitAudiences get() {
+            if (audiences == null) {
+                audiences = initAudiences();
+            }
+            return audiences;
+        }
+
+        private static BukkitAudiences initAudiences() {
+            return ((SlimeDogCore) JavaPlugin
+                    .getProvidingPlugin(MessageRecipient.class)).getAudiences();
+        }
+
     }
 
 }

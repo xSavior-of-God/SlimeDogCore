@@ -1,5 +1,9 @@
 package dev.ratas.slimedogcore.impl.messaging;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.ratas.slimedogcore.api.config.SDCCustomConfig;
 import dev.ratas.slimedogcore.api.messaging.SDCMessage;
 import dev.ratas.slimedogcore.api.messaging.context.SDCDoubleContext;
@@ -12,12 +16,22 @@ import dev.ratas.slimedogcore.api.messaging.factory.SDCSingleContextMessageFacto
 import dev.ratas.slimedogcore.api.messaging.factory.SDCTripleContextMessageFactory;
 import dev.ratas.slimedogcore.api.reload.ReloadException;
 import dev.ratas.slimedogcore.api.reload.SDCReloadable;
+import dev.ratas.slimedogcore.impl.messaging.factory.MessageFactory;
+import dev.ratas.slimedogcore.impl.messaging.mini.MiniMessageUtil;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.internal.parser.ParsingExceptionImpl;
 
 public abstract class MessagesBase implements SDCReloadable {
     private final SDCCustomConfig config;
+    private final boolean checkMessagesUponReload;
 
     protected MessagesBase(SDCCustomConfig config) {
+        this(config, true);
+    }
+
+    protected MessagesBase(SDCCustomConfig config, boolean checkMessagesUponReload) {
         this.config = config;
+        this.checkMessagesUponReload = checkMessagesUponReload;
         config.saveDefaultConfig();
     }
 
@@ -44,6 +58,37 @@ public abstract class MessagesBase implements SDCReloadable {
     @Override
     public void reload() throws ReloadException {
         config.reload();
+        if (checkMessagesUponReload) {
+            checkMessages();
+        }
+    }
+
+    private List<MessageFactory<?>> getAllMessageFactories() {
+        List<MessageFactory<?>> factories = new ArrayList<>();
+        for (Field field : getClass().getDeclaredFields()) {
+            if (field.getType().isAssignableFrom(MessageFactory.class)) {
+                try {
+                    factories.add((MessageFactory<?>) field.get(this));
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    throw new RuntimeException(e); // should not happen
+                }
+            }
+        }
+        return factories;
+    }
+
+    private void checkMessages() throws IllegalMessageException {
+        for (MessageFactory<?> fact : getAllMessageFactories()) {
+            String raw = fact.getRawMessage();
+            if (MiniMessageUtil.textCouldBeMiniMessage(raw)) {
+                MiniMessage mm = MiniMessage.miniMessage();
+                try {
+                    mm.deserialize(raw);
+                } catch (ParsingExceptionImpl e) {
+                    throw new IllegalMessageException(this, "Illegally formatted message: " + raw);
+                }
+            }
+        }
     }
 
     public <T> SDCMessage<SDCSingleContext<T>> fill(SDCSingleContextMessageFactory<T> factory, T t) {

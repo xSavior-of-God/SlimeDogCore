@@ -30,6 +30,7 @@ import dev.ratas.slimedogcore.impl.wrappers.PluginInformation;
 import dev.ratas.slimedogcore.impl.wrappers.PluginManager;
 import dev.ratas.slimedogcore.impl.wrappers.ResourceProvider;
 import dev.ratas.slimedogcore.impl.wrappers.WorldProvider;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin {
     private static final long BLOCK_IDENTICAL_DEBUG_MSG_MS = 10 * 1000L;
@@ -46,6 +47,7 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     private final SDCRecipient console = new MessageRecipient(getServer().getConsoleSender());
     private final SDCOnlinePlayerProvider onlinePlayerProvider = new OnlinePlayerProvider(this);
     private final SDCReloadManager reloadManager = new ReloadManager();
+    private BukkitAudiences audience;
 
     public SlimeDogCore(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
@@ -62,6 +64,11 @@ public abstract class SlimeDogCore extends JavaPlugin implements SlimeDogPlugin 
     @Override
     public void onEnable() {
         pluginEnabled();
+        audience = BukkitAudiences.create(this);
+    }
+
+    public BukkitAudiences getAudiences() {
+        return audience;
     }
 
     @Override

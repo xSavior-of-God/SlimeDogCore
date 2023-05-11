@@ -29,9 +29,15 @@ import net.md_5.bungee.chat.ComponentSerializer;
 public class MessageRecipient implements SDCRecipient {
     private static final LazyAudiences AUDIENCES = new LazyAudiences();
     protected final CommandSender delegate;
+    private final boolean allowMiniMessages;
 
     public MessageRecipient(CommandSender delegate) {
+        this(delegate, true);
+    }
+
+    public MessageRecipient(CommandSender delegate, boolean allowMiniMessages) {
         this.delegate = delegate;
+        this.allowMiniMessages = allowMiniMessages;
     }
 
     @Override
@@ -45,7 +51,7 @@ public class MessageRecipient implements SDCRecipient {
     }
 
     protected void sendTo(ChatMessageType target, String msg, boolean parseJson) {
-        if (MiniMessageUtil.textCouldBeMiniMessage(msg)) {
+        if (allowMiniMessages && MiniMessageUtil.textCouldBeMiniMessage(msg)) {
             sendMiniMessage(target, msg);
             return;
         }

@@ -8,6 +8,7 @@ import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
 import dev.ratas.slimedogcore.impl.messaging.recipient.PlayerRecipient;
 
 public final class BukkitAdapter {
+    private static boolean ALLOW_MINI_MESSAGES = true;
 
     private BukkitAdapter() {
         // private constructor
@@ -15,9 +16,9 @@ public final class BukkitAdapter {
 
     public static SDCRecipient adapt(CommandSender sender) {
         if (sender instanceof Player) {
-            return new PlayerRecipient((Player) sender);
+            return new PlayerRecipient((Player) sender, ALLOW_MINI_MESSAGES);
         }
-        return new MessageRecipient(sender);
+        return new MessageRecipient(sender, ALLOW_MINI_MESSAGES);
     }
 
 }

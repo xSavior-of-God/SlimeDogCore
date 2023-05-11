@@ -8,7 +8,7 @@ import dev.ratas.slimedogcore.impl.messaging.recipient.MessageRecipient;
 import dev.ratas.slimedogcore.impl.messaging.recipient.PlayerRecipient;
 
 public final class BukkitAdapter {
-    private static final boolean ALLOW_MINI_MESSAGES = true;
+    private static boolean ALLOW_MINI_MESSAGES = true;
 
     private BukkitAdapter() {
         // private constructor

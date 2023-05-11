@@ -10,7 +10,11 @@ import dev.ratas.slimedogcore.api.messaging.recipient.SDCPlayerRecipient;
 public class PlayerRecipient extends MessageRecipient implements SDCPlayerRecipient {
 
     public PlayerRecipient(Player delegate) {
-        super(delegate);
+        this(delegate, true);
+    }
+
+    public PlayerRecipient(Player delegate, boolean allowMiniMessages) {
+        super(delegate, allowMiniMessages);
     }
 
     @Override

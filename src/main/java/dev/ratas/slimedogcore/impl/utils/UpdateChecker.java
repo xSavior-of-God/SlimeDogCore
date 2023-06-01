@@ -28,7 +28,6 @@ public class UpdateChecker {
         this.versionResponse = consumer;
     }
 
-    @Override
     public void check() {
         plugin.getScheduler().runTaskAsync(() -> {
             try {

@@ -62,4 +62,8 @@ public class UpdateChecker {
         return new UpdateChecker(plugin, consumer, url);
     }
 
+    public static enum VersionResponse {
+        LATEST, FOUND_NEW, UNAVAILABLE
+    }
+
 }

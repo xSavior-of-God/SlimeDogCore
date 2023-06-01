@@ -15,22 +15,23 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 
 public class UpdateChecker {
     private static final String SPIGOT_URL_BASE = "https://api.spigotmc.org/legacy/update.php?resource=";
+    private static final String HANGAR_URL_BASE = "hangar.papermc.io/api/v1/projects/{author}/{slug}/latestrelease";
     private final SlimeDogPlugin plugin;
-    private final String spigotUrl;
+    private final String url;
     private final BiConsumer<VersionResponse, String> versionResponse;
     private final String currentVersion;
 
-    public UpdateChecker(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer, int spigotId) {
+    public UpdateChecker(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer, String url) {
         this.plugin = plugin;
         this.currentVersion = plugin.getPluginInformation().getPluginVersion();
-        this.spigotUrl = SPIGOT_URL_BASE + spigotId;
+        this.url = url;
         this.versionResponse = consumer;
     }
 
     public void check() {
         plugin.getScheduler().runTaskAsync(() -> {
             try {
-                HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(spigotUrl).openConnection();
+                HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.setRequestProperty(HttpHeaders.USER_AGENT, "Mozilla/5.0");
 
@@ -46,6 +47,18 @@ public class UpdateChecker {
                 plugin.getScheduler().runTask(() -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
             }
         });
+    }
+
+    public static final UpdateChecker forSpigot(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer,
+            int spigotId) {
+        String url = SPIGOT_URL_BASE + spigotId;
+        return new UpdateChecker(plugin, consumer, url);
+    }
+
+    public static final UpdateChecker forHangar(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer,
+            String author, String slug) {
+        String url = HANGAR_URL_BASE.replace("{author}", author).replace("{slug}", slug);
+        return new UpdateChecker(plugin, consumer, url);
     }
 
     public static enum VersionResponse {

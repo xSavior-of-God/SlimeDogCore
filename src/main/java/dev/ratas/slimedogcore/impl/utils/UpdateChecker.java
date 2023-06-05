@@ -15,7 +15,7 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 
 public class UpdateChecker {
     private static final String SPIGOT_URL_BASE = "https://api.spigotmc.org/legacy/update.php?resource=";
-    private static final String HANGAR_URL_BASE = "hangar.papermc.io/api/v1/projects/{author}/{slug}/latestrelease";
+    private static final String HANGAR_URL_BASE = "https://hangar.papermc.io/api/v1/projects/{author}/{slug}/latestrelease";
     private final SlimeDogPlugin plugin;
     private final String url;
     private final BiConsumer<VersionResponse, String> versionResponse;

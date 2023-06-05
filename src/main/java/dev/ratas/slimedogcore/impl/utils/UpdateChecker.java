@@ -28,25 +28,37 @@ public class UpdateChecker {
         this.versionResponse = consumer;
     }
 
+    private void checkNow() {
+        try {
+            HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty(HttpHeaders.USER_AGENT, "Mozilla/5.0");
+
+            String fetchedVersion = Resources.toString(httpURLConnection.getURL(), Charset.defaultCharset());
+
+            boolean latestVersion = fetchedVersion.equalsIgnoreCase(this.currentVersion);
+
+            plugin.getScheduler().runTask(() -> this.versionResponse.accept(
+                    latestVersion ? VersionResponse.LATEST : VersionResponse.FOUND_NEW,
+                    latestVersion ? this.currentVersion : fetchedVersion));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            plugin.getScheduler().runTask(() -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
+        }
+    }
+
     public void check() {
-        plugin.getScheduler().runTaskAsync(() -> {
-            try {
-                HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.setRequestProperty(HttpHeaders.USER_AGENT, "Mozilla/5.0");
+        check(false);
+    }
 
-                String fetchedVersion = Resources.toString(httpURLConnection.getURL(), Charset.defaultCharset());
-
-                boolean latestVersion = fetchedVersion.equalsIgnoreCase(this.currentVersion);
-
-                plugin.getScheduler().runTask(() -> this.versionResponse.accept(
-                        latestVersion ? VersionResponse.LATEST : VersionResponse.FOUND_NEW,
-                        latestVersion ? this.currentVersion : fetchedVersion));
-            } catch (IOException exception) {
-                exception.printStackTrace();
-                plugin.getScheduler().runTask(() -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
-            }
-        });
+    public void check(boolean inSync) {
+        if (inSync) {
+            checkNow();
+        } else {
+            plugin.getScheduler().runTaskAsync(() -> {
+                checkNow();
+            });
+        }
     }
 
     public static final UpdateChecker forSpigot(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer,

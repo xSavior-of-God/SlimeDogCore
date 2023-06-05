@@ -28,7 +28,43 @@ public class UpdateChecker {
         this.versionResponse = consumer;
     }
 
-    private void checkNow() {
+    private void returnLatest() {
+        this.versionResponse.accept(VersionResponse.LATEST, this.currentVersion);
+    }
+
+    private void atttemptReturnLatest(boolean now) {
+        if (now) {
+            returnLatest();
+        } else {
+            plugin.getScheduler().runTask(this::returnLatest);
+        }
+    }
+
+    private void returnUpdate(String version) {
+        this.versionResponse.accept(VersionResponse.FOUND_NEW, version);
+    }
+
+    private void atttemptReturnUpdate(String version, boolean inSync) {
+        if (inSync) {
+            returnUpdate(version);
+        } else {
+            plugin.getScheduler().runTask(() -> returnUpdate(version));
+        }
+    }
+
+    private void returnUnavailable() {
+        this.versionResponse.accept(VersionResponse.UNAVAILABLE, null);
+    }
+
+    private void atttemptReturnUnavailable(boolean inSync) {
+        if (inSync) {
+            returnUnavailable();
+        } else {
+            plugin.getScheduler().runTask(this::returnUnavailable);
+        }
+    }
+
+    private void checkNow(boolean inSync) {
         try {
             HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
             httpURLConnection.setRequestMethod("GET");
@@ -37,13 +73,14 @@ public class UpdateChecker {
             String fetchedVersion = Resources.toString(httpURLConnection.getURL(), Charset.defaultCharset());
 
             boolean latestVersion = fetchedVersion.equalsIgnoreCase(this.currentVersion);
-
-            plugin.getScheduler().runTask(() -> this.versionResponse.accept(
-                    latestVersion ? VersionResponse.LATEST : VersionResponse.FOUND_NEW,
-                    latestVersion ? this.currentVersion : fetchedVersion));
+            if (latestVersion) {
+                atttemptReturnLatest(inSync);
+            } else {
+                atttemptReturnUpdate(fetchedVersion, inSync);
+            }
         } catch (IOException exception) {
             exception.printStackTrace();
-            plugin.getScheduler().runTask(() -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
+            atttemptReturnUnavailable(inSync);
         }
     }
 
@@ -53,10 +90,10 @@ public class UpdateChecker {
 
     public void check(boolean inSync) {
         if (inSync) {
-            checkNow();
+            checkNow(inSync);
         } else {
             plugin.getScheduler().runTaskAsync(() -> {
-                checkNow();
+                checkNow(inSync);
             });
         }
     }

@@ -15,7 +15,7 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 
 public class UpdateChecker {
     private static final String SPIGOT_URL_BASE = "https://api.spigotmc.org/legacy/update.php?resource=";
-    private static final String HANGAR_URL_BASE = "hangar.papermc.io/api/v1/projects/{author}/{slug}/latestrelease";
+    private static final String HANGAR_URL_BASE = "https://hangar.papermc.io/api/v1/projects/{author}/{slug}/latestrelease";
     private final SlimeDogPlugin plugin;
     private final String url;
     private final BiConsumer<VersionResponse, String> versionResponse;
@@ -28,25 +28,74 @@ public class UpdateChecker {
         this.versionResponse = consumer;
     }
 
-    public void check() {
-        plugin.getScheduler().runTaskAsync(() -> {
-            try {
-                HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.setRequestProperty(HttpHeaders.USER_AGENT, "Mozilla/5.0");
+    private void returnLatest() {
+        this.versionResponse.accept(VersionResponse.LATEST, this.currentVersion);
+    }
 
-                String fetchedVersion = Resources.toString(httpURLConnection.getURL(), Charset.defaultCharset());
+    private void atttemptReturnLatest(boolean now) {
+        if (now) {
+            returnLatest();
+        } else {
+            plugin.getScheduler().runTask(this::returnLatest);
+        }
+    }
 
-                boolean latestVersion = fetchedVersion.equalsIgnoreCase(this.currentVersion);
+    private void returnUpdate(String version) {
+        this.versionResponse.accept(VersionResponse.FOUND_NEW, version);
+    }
 
-                plugin.getScheduler().runTask(() -> this.versionResponse.accept(
-                        latestVersion ? VersionResponse.LATEST : VersionResponse.FOUND_NEW,
-                        latestVersion ? this.currentVersion : fetchedVersion));
-            } catch (IOException exception) {
-                exception.printStackTrace();
-                plugin.getScheduler().runTask(() -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
+    private void atttemptReturnUpdate(String version, boolean inSync) {
+        if (inSync) {
+            returnUpdate(version);
+        } else {
+            plugin.getScheduler().runTask(() -> returnUpdate(version));
+        }
+    }
+
+    private void returnUnavailable() {
+        this.versionResponse.accept(VersionResponse.UNAVAILABLE, null);
+    }
+
+    private void atttemptReturnUnavailable(boolean inSync) {
+        if (inSync) {
+            returnUnavailable();
+        } else {
+            plugin.getScheduler().runTask(this::returnUnavailable);
+        }
+    }
+
+    private void checkNow(boolean inSync) {
+        try {
+            HttpURLConnection httpURLConnection = (HttpsURLConnection) new URL(url).openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty(HttpHeaders.USER_AGENT, "Mozilla/5.0");
+
+            String fetchedVersion = Resources.toString(httpURLConnection.getURL(), Charset.defaultCharset());
+
+            boolean latestVersion = fetchedVersion.equalsIgnoreCase(this.currentVersion);
+            if (latestVersion) {
+                atttemptReturnLatest(inSync);
+            } else {
+                atttemptReturnUpdate(fetchedVersion, inSync);
             }
-        });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            atttemptReturnUnavailable(inSync);
+        }
+    }
+
+    public void check() {
+        check(false);
+    }
+
+    public void check(boolean inSync) {
+        if (inSync) {
+            checkNow(inSync);
+        } else {
+            plugin.getScheduler().runTaskAsync(() -> {
+                checkNow(inSync);
+            });
+        }
     }
 
     public static final UpdateChecker forSpigot(SlimeDogPlugin plugin, BiConsumer<VersionResponse, String> consumer,

@@ -110,6 +110,15 @@ public class UpdateChecker {
         return new UpdateChecker(plugin, consumer, url);
     }
 
+    public static final UpdateChecker forHangarOrSpigot(SlimeDogPlugin plugin,
+            BiConsumer<VersionResponse, String> consumer, int spigotId, String hangarAuthor, String hangarSlug,
+            boolean hangar) {
+        if (hangar) {
+            return forHangar(plugin, consumer, hangarAuthor, hangarSlug);
+        }
+        return forSpigot(plugin, consumer, spigotId);
+    }
+
     public static enum VersionResponse {
         LATEST, FOUND_NEW, UNAVAILABLE
     }

@@ -43,6 +43,11 @@ public class PluginInformation implements SDCPluginInformation {
     }
 
     @Override
+    public String getCraftBukkitFullPackage() {
+        return plugin.getServer().getClass().getPackage().getName();
+    }
+
+    @Override
     public String getPluginName() {
         return plugin.getName();
     }

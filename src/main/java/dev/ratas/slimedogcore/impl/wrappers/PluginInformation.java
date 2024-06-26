@@ -7,6 +7,7 @@ import dev.ratas.slimedogcore.impl.SlimeDogCore;
 
 public class PluginInformation implements SDCPluginInformation {
     private static final int VERSION_PACKAGE_NR = 3;
+    private final boolean isPaper;
     private final SlimeDogCore plugin;
     private final String craftBukkitPackage;
 
@@ -18,7 +19,12 @@ public class PluginInformation implements SDCPluginInformation {
         } catch (ArrayIndexOutOfBoundsException e) {
             cbVersion = "UNAVAILABLE (test time?)"; // Unavailable during test time
         }
-        this.craftBukkitPackage = cbVersion;
+        this.isPaper = cbVersion == "UNAVAILABLE (test time?)";
+        if (isPaper) {
+            this.craftBukkitPackage = "Paper-" + plugin.getServer().getBukkitVersion();
+        } else {
+            this.craftBukkitPackage = cbVersion;
+        }
     }
 
     @Override
@@ -34,6 +40,11 @@ public class PluginInformation implements SDCPluginInformation {
     @Override
     public String getCraftBukkitPackage() {
         return craftBukkitPackage;
+    }
+
+    @Override
+    public String getCraftBukkitFullPackage() {
+        return plugin.getServer().getClass().getPackage().getName();
     }
 
     @Override

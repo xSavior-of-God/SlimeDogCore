@@ -5,7 +5,7 @@ Core functionality for high-quality Minecraft resources produced by [SlimeDog](h
 You are welcome to use it under the terms of the GPL3 license,
 with the understanding that changes may be made in future, as we incorporate more common functionality.
 
-📜 See the [javadocs](https://blackdog.straight8.com/minecraft/SlimeDogCore/javadocs/) for the latest documentation.
+📜 See the [javadocs](https://github.com/SlimeDog/SlimeDogCore/releases/) for the latest documentation.
 
 ♥️ Please give credit where due.
 

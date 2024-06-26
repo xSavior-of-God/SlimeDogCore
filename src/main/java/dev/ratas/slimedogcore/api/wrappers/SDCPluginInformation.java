@@ -21,9 +21,20 @@ public interface SDCPluginInformation {
     /**
      * Get the CraftBukkit package (e.g v1_19_R1)
      *
+     * NB! This will not give the correct package path for Paper.
+     *
      * @return the CraftBukkit package
      */
     String getCraftBukkitPackage();
+
+    /**
+     * Get the full CraftBukkit package.
+     *
+     * This should work for both Bukkit / Spigot and Paper.
+     *
+     * @return the full CraftBukkit package.
+     */
+    String getCraftBukkitFullPackage();
 
     /**
      * Get the name of the plugin.

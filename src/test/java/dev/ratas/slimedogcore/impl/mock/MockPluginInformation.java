@@ -30,6 +30,11 @@ public class MockPluginInformation implements SDCPluginInformation {
     }
 
     @Override
+    public String getCraftBukkitFullPackage() {
+        return CB_PACKAGE_NAME;
+    }
+
+    @Override
     public String getPluginName() {
         return PLUGIN_NAME;
     }

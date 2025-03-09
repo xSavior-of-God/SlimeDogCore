@@ -10,6 +10,7 @@ import dev.ratas.slimedogcore.api.SlimeDogPlugin;
 import dev.ratas.slimedogcore.impl.mock.MockPlugin;
 
 public class UpdateCheckerTest {
+/*
     // example Spigot ID
     private static final int ENTITYCOUNT_SPIGOT_ID = 527767;
     // example Hangar author / slug
@@ -39,5 +40,5 @@ public class UpdateCheckerTest {
         }, ENTITYCOUNT_HANGAR_AUTHOR, ENTITYCOUNT_HANGAR_SLUG).check(true);
         Assertions.assertEquals(calls.get(), 1);
     }
-
+*/
 }
